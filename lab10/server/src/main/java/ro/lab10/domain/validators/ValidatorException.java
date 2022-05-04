@@ -1,4 +1,6 @@
-package ro.lab10.exceptions;
+package ro.lab10.domain.validators;
+
+import ro.lab10.exceptions.AppException;
 
 public class ValidatorException extends AppException {
     public ValidatorException(String message) {
