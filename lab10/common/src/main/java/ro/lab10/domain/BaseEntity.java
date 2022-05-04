@@ -1,7 +1,7 @@
 package ro.lab10.domain;
 
 public class BaseEntity<ID> {
-    private ID id;
+    protected ID id;
 
     public BaseEntity(ID id) {
         this.id = id;

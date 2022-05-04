@@ -4,10 +4,14 @@ public class Customer extends BaseEntity<Long> {
     private final String name;
     private final String email;
 
-    public Customer(Long aLong, String name, String email) {
-        super(aLong);
+    public Customer(Long id, String name, String email) {
+        super(id);
         this.name = name;
         this.email = email;
+    }
+
+    public Customer(String name, String email) {
+        this(0L, name, email);
     }
 
     public String getName() {
@@ -21,7 +25,8 @@ public class Customer extends BaseEntity<Long> {
     @Override
     public String toString() {
         return "Customer{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

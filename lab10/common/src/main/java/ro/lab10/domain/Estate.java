@@ -3,13 +3,15 @@ package ro.lab10.domain;
 public class Estate extends BaseEntity<Long> {
     private final String address;
     private final double surface;
-    private final double price;
 
-    public Estate(Long id, String address, double surface, double price) {
+    public Estate(Long id, String address, double surface) {
         super(id);
         this.address = address;
         this.surface = surface;
-        this.price = price;
+    }
+
+    public Estate(String address, double surface) {
+        this(0L, address, surface);
     }
 
     public String getAddress() {
@@ -20,16 +22,12 @@ public class Estate extends BaseEntity<Long> {
         return surface;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
     @Override
     public String toString() {
         return "Estate{" +
-                "address='" + address + '\'' +
+                "id=" + id +
+                ", address='" + address + '\'' +
                 ", surface=" + surface +
-                ", price=" + price +
                 '}';
     }
 }
