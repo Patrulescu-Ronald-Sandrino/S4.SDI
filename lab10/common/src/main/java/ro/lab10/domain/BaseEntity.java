@@ -3,6 +3,10 @@ package ro.lab10.domain;
 public class BaseEntity<ID> {
     private ID id;
 
+    public BaseEntity(ID id) {
+        this.id = id;
+    }
+
     public ID getId() {
         return id;
     }
