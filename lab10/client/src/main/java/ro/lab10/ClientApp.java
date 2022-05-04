@@ -12,7 +12,7 @@ public class ClientApp {
         }
     }
 
-    public static AnnotationConfigApplicationContext getContext() {
+    private static AnnotationConfigApplicationContext getContext() {
         return new AnnotationConfigApplicationContext("ro.lab10.config");
     }
 }

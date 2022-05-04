@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static ro.lab10.Tools.getDateTime;
+
 public class TcpClient {
     public static final String HOST = "localhost";
     public static final int PORT = 1234;
@@ -41,11 +43,4 @@ public class TcpClient {
             throw new AppException(String.format("[%s] sendAndReceive(%s) failed\n", getDateTime(), request.toString()), e);
         }
     }
-
-    private static String getDateTime() {
-        var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        var currentTime = LocalDateTime.now();
-        return dateTimeFormatter.format(currentTime);
-    }
-
 }
