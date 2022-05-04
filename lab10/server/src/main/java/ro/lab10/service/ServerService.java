@@ -10,12 +10,21 @@ import java.util.concurrent.ExecutorService;
 public class ServerService implements AppService {
     private final ExecutorService executorService;
 
+
+    /*
+     Agency m:n Estates
+        An agency sells/offers more estates
+        The same estate can be sold/offered by more companies
+      Customer 1:n Estates
+        A customer can own 1 or more estates
+     */
+
     /*
     TODO: add services:
+        - AgencyService
         - CustomerService
         - EstateService
-        - CityService
-        - CityEstateService
+        - ?OfferService
      */
     @Autowired
     public ServerService(ExecutorService executorService) {

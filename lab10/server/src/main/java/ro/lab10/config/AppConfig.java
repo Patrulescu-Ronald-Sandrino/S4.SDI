@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Configuration
-@ComponentScan({"ro.lab10.repository", "ro.lab10.service", "ro.lab10.tcp"})
+@ComponentScan({"ro.lab10.domain.validators", "ro.lab10.repository", "ro.lab10.service", "ro.lab10.tcp"})
 public class AppConfig {
     @Bean
     ExecutorService executorService() {
