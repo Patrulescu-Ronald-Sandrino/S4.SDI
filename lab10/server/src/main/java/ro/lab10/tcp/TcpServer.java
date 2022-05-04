@@ -15,8 +15,7 @@ import java.util.function.UnaryOperator;
 import static ro.lab10.Tools.getDateTime;
 
 @Component
-public class TcpServer {
-    public static final int PORT = 1234;
+public class TcpServer implements ClientServer {
 
     private final ExecutorService executorService;
     private final Map<String, UnaryOperator<Message>> methodsHandlers = new HashMap<>();

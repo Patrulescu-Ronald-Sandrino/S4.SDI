@@ -8,7 +8,6 @@ import java.util.concurrent.ExecutorService;
 
 @Component
 public class ServerService implements AppService {
-
     private final ExecutorService executorService;
 
     /*
@@ -18,7 +17,6 @@ public class ServerService implements AppService {
         - CityService
         - CityEstateService
      */
-
     @Autowired
     public ServerService(ExecutorService executorService) {
         this.executorService = executorService;

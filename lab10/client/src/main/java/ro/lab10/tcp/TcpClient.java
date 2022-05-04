@@ -9,25 +9,10 @@ import java.time.format.DateTimeFormatter;
 
 import static ro.lab10.Tools.getDateTime;
 
-public class TcpClient {
-    public static final String HOST = "localhost";
-    public static final int PORT = 1234;
-
-    private final String host;
-    private final int port;
-
-    public TcpClient() {
-        this.host = HOST;
-        this.port = PORT;
-    }
-
-    public TcpClient(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
+public class TcpClient implements ClientServer {
 
     public Message sendAndReceive(Message request) {
-        try (var socket = new Socket(host, port)) {
+        try (var socket = new Socket(HOST, PORT)) {
             var inputStream = socket.getInputStream();
             var outputStream = socket.getOutputStream();
 
