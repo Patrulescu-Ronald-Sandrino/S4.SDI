@@ -5,24 +5,32 @@ import org.springframework.jdbc.core.JdbcOperations;
 import ro.lab10.domain.Agency;
 import ro.lab10.domain.validators.AgencyValidator;
 import ro.lab10.domain.validators.ValidatorException;
+import ro.lab10.exceptions.AppException;
 
 import java.util.Optional;
 
 @org.springframework.stereotype.Repository
-public class AgencyRepository implements Repository<Long, Agency> {
-    private final JdbcOperations jdbcOperations;
+public class AgencyRepository extends JDBCRepository<Long, Agency> {
     private final AgencyValidator validator;
 
     @Autowired
     public AgencyRepository(JdbcOperations jdbcOperations, AgencyValidator validator) {
-        this.jdbcOperations = jdbcOperations;
+        super(jdbcOperations);
         this.validator = validator;
+    }
 
-        String sqlQueryCreateTableAgency = "";
+     void createTableIfNotExists() throws AppException {
+        executeDDLStatement("""
+                CREATE TABLE IF NOT EXISTS Agencies (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(50),
+                    address VARCHAR(50),
+                    UNIQUE(name, address)
+                )""");
     }
 
     @Override
-    public Optional<Agency> findOne(Long aLong) {
+    public Optional<Agency> findOne(Long id) {
         return Optional.empty();
     }
 
@@ -37,7 +45,7 @@ public class AgencyRepository implements Repository<Long, Agency> {
     }
 
     @Override
-    public Optional<Agency> delete(Long aLong) {
+    public Optional<Agency> delete(Long id) {
         return Optional.empty();
     }
 

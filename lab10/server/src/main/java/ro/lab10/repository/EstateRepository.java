@@ -5,22 +5,31 @@ import org.springframework.jdbc.core.JdbcOperations;
 import ro.lab10.domain.Estate;
 import ro.lab10.domain.validators.EstateValidator;
 import ro.lab10.domain.validators.ValidatorException;
+import ro.lab10.exceptions.AppException;
 
 import java.util.Optional;
 
 @org.springframework.stereotype.Repository
-public class EstateRepository implements Repository<Long, Estate> {
-    private final JdbcOperations jdbcOperations;
+public class EstateRepository extends JDBCRepository<Long, Estate> {
     private final EstateValidator validator;
 
     @Autowired
     public EstateRepository(JdbcOperations jdbcOperations, EstateValidator validator) {
-        this.jdbcOperations = jdbcOperations;
+        super(jdbcOperations);
         this.validator = validator;
     }
 
+    void createTableIfNotExists() throws AppException {
+        executeDDLStatement("""
+                CREATE TABLE IF NOT EXISTS Estates (
+                    id SERIAL PRIMARY KEY,
+                    address VARCHAR(50) UNIQUE,
+                    surface DOUBLE
+                )""");
+    }
+
     @Override
-    public Optional<Estate> findOne(Long aLong) {
+    public Optional<Estate> findOne(Long id) {
         return Optional.empty();
     }
 
@@ -35,7 +44,7 @@ public class EstateRepository implements Repository<Long, Estate> {
     }
 
     @Override
-    public Optional<Estate> delete(Long aLong) {
+    public Optional<Estate> delete(Long id) {
         return Optional.empty();
     }
 

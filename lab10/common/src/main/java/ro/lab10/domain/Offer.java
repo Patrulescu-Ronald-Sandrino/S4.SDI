@@ -1,22 +1,19 @@
 package ro.lab10.domain;
 
-public class Offer {
-    private final Long agencyId;
-    private final Long estateId;
+public class Offer extends BaseEntity<Pair<Long, Long>> {
     private final double price;
 
     public Offer(Long agencyId, Long estateId, double price) {
-        this.agencyId = agencyId;
-        this.estateId = estateId;
+        super(new Pair<>(agencyId, estateId));
         this.price = price;
     }
 
     public Long getAgencyId() {
-        return agencyId;
+        return id.getLeft();
     }
 
     public Long getEstateId() {
-        return estateId;
+        return id.getRight();
     }
 
     public double getPrice() {
@@ -26,8 +23,8 @@ public class Offer {
     @Override
     public String toString() {
         return "Offer{" +
-                "agencyId=" + agencyId +
-                ", estateId=" + estateId +
+                "agencyId=" + id.getLeft() +
+                ", estateId=" + id.getRight() +
                 ", price=" + price +
                 '}';
     }
