@@ -12,8 +12,4 @@ public class ClientService implements AppService {
         this.executorService = executorService;
         this.tcpClient = tcpClient;
     }
-
-    public void closeExecutor() {
-        executorService.shutdown();
-    }
 }

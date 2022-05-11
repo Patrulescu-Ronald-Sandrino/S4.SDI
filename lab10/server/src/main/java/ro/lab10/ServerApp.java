@@ -2,6 +2,7 @@ package ro.lab10;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ro.lab10.service.ServerService;
+import ro.lab10.tcp.Message;
 import ro.lab10.tcp.TcpServer;
 
 public class ServerApp {
@@ -11,9 +12,13 @@ public class ServerApp {
             var tcpServer = context.getBean(TcpServer.class);
             var serverService = context.getBean(ServerService.class);
 
-            serverService.addHandlers(tcpServer);
+            addServiceHandlers(tcpServer, serverService);
             tcpServer.startServer();
         }
+    }
+
+    private static void addServiceHandlers(TcpServer tcpServer, ServerService serverService) {
+        tcpServer.addHandler("hello", message -> new Message(Message.OK, "hello"));
     }
 
     private static AnnotationConfigApplicationContext getContext() {

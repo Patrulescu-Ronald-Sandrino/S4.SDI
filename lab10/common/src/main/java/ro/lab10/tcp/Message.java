@@ -4,8 +4,8 @@ import java.io.*;
 
 public class Message {
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    private static final String OK = "ok";
-    private static final String ERROR = "error";
+    public static final String OK = "ok";
+    public static final String ERROR = "error";
 
     private final String header;
     private final String body;

@@ -1,14 +1,15 @@
 package ro.lab10.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import ro.lab10.tcp.TcpServer;
 
 import java.util.concurrent.ExecutorService;
 
-@Component
+@org.springframework.stereotype.Service
 public class ServerService implements AppService {
-    private final ExecutorService executorService;
+    @Autowired
+    private ExecutorService executorService;
+    @Autowired
+    private Service service;
 
 
     /*
@@ -26,12 +27,4 @@ public class ServerService implements AppService {
         - EstateService
         - ?OfferService
      */
-    @Autowired
-    public ServerService(ExecutorService executorService) {
-        this.executorService = executorService;
-    }
-
-    public void addHandlers(TcpServer tcpServer) {
-
-    }
 }

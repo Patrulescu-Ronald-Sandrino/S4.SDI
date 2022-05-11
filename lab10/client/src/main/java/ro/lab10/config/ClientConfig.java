@@ -20,7 +20,8 @@ public class ClientConfig {
         return new ClientService(executor(), tcpClient());
     }
 
-    private ExecutorService executor() {
+    @Bean
+    ExecutorService executor() {
         return Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors()
         );

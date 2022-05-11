@@ -16,11 +16,10 @@ import static ro.lab10.Tools.getDateTime;
 
 @Component
 public class TcpServer implements ClientServer {
-
+    @Autowired
     private final ExecutorService executorService;
     private final Map<String, UnaryOperator<Message>> methodsHandlers = new HashMap<>();
 
-    @Autowired
     public TcpServer(ExecutorService executorService) {
         this.executorService = executorService;
     }
