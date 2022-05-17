@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
+
 public class ClientService implements AppService {
     private final ExecutorService executorService;
     private final TcpClient tcpClient;

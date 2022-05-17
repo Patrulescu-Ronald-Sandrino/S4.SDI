@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 public class ClientConfig {
     @Bean
     ConsoleMenuUI console() {
-        return new ConsoleMenuUI(service());
+        return new ConsoleMenuUI(service(), executor());
     }
 
     private ClientService service() {
