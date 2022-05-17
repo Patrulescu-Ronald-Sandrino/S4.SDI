@@ -36,9 +36,11 @@ public class ConsoleMenuUI {
                 }
                 else {
                     optionHandler.run();
+                    executorService.execute(optionHandler);
+                    executorService.wait();
                 }
             }
-            catch (InputMismatchException e) {
+            catch (NumberFormatException e) {
                 IO.writeLine("Bad input type for option!");
             }
             catch (Exception e) {

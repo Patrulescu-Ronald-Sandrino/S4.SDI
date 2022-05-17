@@ -13,18 +13,18 @@ public class IO {
     public static int readInteger(String prompt) {
         write(prompt);
         var scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static String readString(String prompt) {
         write(prompt);
         var scanner = new Scanner(System.in);
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     public static double readDouble(String prompt) {
         write(prompt);
         var scanner = new Scanner(System.in);
-        return scanner.nextDouble();
+        return Double.parseDouble(scanner.nextLine());
     }
 }
