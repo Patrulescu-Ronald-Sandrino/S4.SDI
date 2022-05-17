@@ -27,7 +27,7 @@ public class OfferRepository extends JDBCRepository<Pair<Long, Long>, Offer> {
                 (
                     agencyId INT,
                     estateId INT,
-                    price DOUBLE,
+                    price REAL,
                     PRIMARY KEY (agencyId, estateId)
                 )""";
     }

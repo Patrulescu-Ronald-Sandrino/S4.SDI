@@ -12,9 +12,10 @@ public abstract class JDBCRepository<ID, T extends BaseEntity<ID>> implements Re
     protected JDBCRepository(JdbcOperations jdbcOperations, String tableName) {
         this.jdbcOperations = jdbcOperations;
         this.tableName = tableName;
-        executeDDLStatement("""
-                CREATE IF NOT EXISTS""" + tableName + " "
-                + getDDLColumns());
+//        executeDDLStatement("""
+//                CREATE IF NOT EXISTS """ + tableName + " "
+//                + getDDLColumns());
+        executeDDLStatement("CREATE TABLE IF NOT EXISTS %s %s".formatted(tableName, getDDLColumns()));
     }
 
     protected void executeDDLStatement(String sqlDDLStatement) {

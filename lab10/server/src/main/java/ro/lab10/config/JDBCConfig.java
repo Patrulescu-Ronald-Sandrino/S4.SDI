@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Driver;
+import org.postgresql.Driver;
 
 @Configuration
 public class JDBCConfig {
@@ -33,9 +33,10 @@ public class JDBCConfig {
         BasicDataSource dataSource = new BasicDataSource();
 
         dataSource.setDriverClassName(Driver.class.getName());
-        dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+//        dataSource.setUrl(url);
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/catalog-sdi-lab10");
         dataSource.setInitialSize(2);
 
         return dataSource;

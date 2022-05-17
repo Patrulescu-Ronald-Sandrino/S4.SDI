@@ -25,7 +25,7 @@ public class EstateRepository extends JDBCRepository<Long, Estate> {
                 (
                     id SERIAL PRIMARY KEY,
                     address VARCHAR(50) UNIQUE,
-                    surface DOUBLE
+                    surface REAL
                 )""";
     }
 

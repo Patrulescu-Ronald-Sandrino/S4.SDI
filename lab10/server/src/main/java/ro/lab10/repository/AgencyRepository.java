@@ -21,12 +21,13 @@ public class AgencyRepository extends JDBCRepository<Long, Agency> {
     }
 
      String getDDLColumns() {
-        return """
-                (
-                    id SERIAL PRIMARY KEY,
-                    name VARCHAR(50) UNIQUE,
-                    address VARCHAR(50) UNIQUE,
-                )""";
+//        return """
+//                (
+//                    id SERIAL PRIMARY KEY,
+//                    name VARCHAR(50) UNIQUE,
+//                    address VARCHAR(50) UNIQUE
+//                )""";
+         return "(id SERIAL PRIMARY KEY, name VARCHAR(50) UNIQUE, address VARCHAR(50) UNIQUE)";
     }
 
     @Override
