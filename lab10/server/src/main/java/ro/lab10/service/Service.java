@@ -11,6 +11,7 @@ import ro.lab10.repository.OfferRepository;
 import java.util.Set;
 import java.util.function.Supplier;
 
+
 @org.springframework.stereotype.Service
 public class Service {
     @Autowired
