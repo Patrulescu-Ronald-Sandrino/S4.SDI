@@ -9,8 +9,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static ro.lab10.Tools.getDateTime;
 
@@ -23,6 +26,17 @@ public class TcpServer implements ClientServer {
     public TcpServer(ExecutorService executorService) {
         this.executorService = executorService;
     }
+
+//    private static UnaryOperator<Message> wrapHandlerWithTryCatch(UnaryOperator<Message> handler) {
+//        return request -> {
+//            try {
+//                return handler.apply(request);
+//            } catch (InterruptedException | ExecutionException e) {
+//                e.printStackTrace();
+//                return new Message(Message.ERROR, e.getMessage());
+//            }
+//        };
+//    }
 
     public void addHandler(String methodName, UnaryOperator<Message> handler) {
         methodsHandlers.put(methodName, handler);

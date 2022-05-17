@@ -1,6 +1,5 @@
 package ro.lab10.ui;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ro.lab10.service.AppService;
 import ro.lab10.service.ClientService;
 

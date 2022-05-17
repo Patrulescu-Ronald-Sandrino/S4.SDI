@@ -3,7 +3,7 @@ package ro.lab10.tcp;
 import java.io.*;
 
 public class Message {
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String OK = "ok";
     public static final String ERROR = "error";
 
@@ -13,6 +13,11 @@ public class Message {
     public Message(String header, String body) {
         this.header = header;
         this.body = body;
+    }
+
+    public Message(String header) {
+        this.header = header;
+        this.body = "";
     }
 
     public String getHeader() {
