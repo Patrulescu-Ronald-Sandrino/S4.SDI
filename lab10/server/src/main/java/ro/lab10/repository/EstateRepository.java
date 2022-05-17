@@ -50,7 +50,7 @@ public class EstateRepository extends JDBCRepository<Long, Estate> {
     @Override
     public Optional<Estate> save(Estate entity) throws ValidatorException {
         validator.validate(entity);
-        var sql = "INSERT INTO %s VALUES (?, ?)".formatted(tableName);
+        var sql = "INSERT INTO %s (address, surface) VALUES (?, ?)".formatted(tableName);
 
         jdbcOperations.update(sql, entity.getAddress(), entity.getSurface());
         return Optional.empty();

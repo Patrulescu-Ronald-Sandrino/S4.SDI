@@ -15,4 +15,16 @@ public class IO {
         var scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
+
+    public static String readString(String prompt) {
+        write(prompt);
+        var scanner = new Scanner(System.in);
+        return scanner.next();
+    }
+
+    public static double readDouble(String prompt) {
+        write(prompt);
+        var scanner = new Scanner(System.in);
+        return scanner.nextDouble();
+    }
 }

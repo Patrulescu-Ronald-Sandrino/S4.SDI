@@ -2,8 +2,10 @@ package ro.lab10.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.lab10.domain.Agency;
+import ro.lab10.domain.convertors.AgencyConvertor;
 import ro.lab10.exceptions.AppException;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
@@ -15,8 +17,15 @@ public class ServerService implements AppService {
     private Service service;
 
     @Override
-    public CompletableFuture<Iterable<Agency>> getAgencies() {
-        return CompletableFuture.supplyAsync(() -> service.getAgencies(), executorService);
+    public CompletableFuture<String> getAgencies() {
+        return CompletableFuture.supplyAsync(
+                () -> service.getAgencies().stream()
+                        .map(Objects::toString)
+                        .map(agency -> agency + '\n')
+//                        .reduce("", String::concat),
+                        .reduce(String::concat)
+                        .orElse("Empty"),
+                executorService);
     }
 
     @Override

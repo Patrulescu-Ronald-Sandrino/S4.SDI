@@ -50,7 +50,7 @@ public class CustomerRepository extends JDBCRepository<Long, Customer> {
     @Override
     public Optional<Customer> save(Customer entity) throws ValidatorException {
         validator.validate(entity);
-        var sql = "INSERT INTO %s VALUES (?, ?)".formatted(tableName);
+        var sql = "INSERT INTO %s (name, email) VALUES (?, ?)".formatted(tableName);
 
         jdbcOperations.update(sql, entity.getName(), entity.getEmail());
         return Optional.empty();

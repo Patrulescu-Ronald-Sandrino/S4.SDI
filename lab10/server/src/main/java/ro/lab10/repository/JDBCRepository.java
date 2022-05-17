@@ -4,6 +4,8 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import ro.lab10.domain.BaseEntity;
 
+import java.util.List;
+
 public abstract class JDBCRepository<ID, T extends BaseEntity<ID>> implements Repository<ID, T> {
     protected final JdbcOperations jdbcOperations;
 
@@ -34,7 +36,7 @@ public abstract class JDBCRepository<ID, T extends BaseEntity<ID>> implements Re
     }
 
     @Override
-    public Iterable<T> findAll() {
+    public List<T> findAll() {
         return jdbcOperations.query(getSelectAllFromTableStatement(), getRowMapper());
     }
 

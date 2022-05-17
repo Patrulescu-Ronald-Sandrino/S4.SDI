@@ -9,13 +9,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static ro.lab10.Tools.getDateTime;
+import static ro.lab10.tools.Socket.getAddressAndPort;
 
 @Component
 public class TcpServer implements ClientServer {
@@ -42,11 +40,11 @@ public class TcpServer implements ClientServer {
         methodsHandlers.put(methodName, handler);
     }
 
-    public static String getTCPSocketAddress(Socket socket) {
+    public static String getTCPSocketAddress(Socket socket) { // https://www.baeldung.com/java-client-get-ip-address
         var socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
 
         return socketAddress.getAddress().getHostAddress();
-    } // https://www.baeldung.com/java-client-get-ip-address
+    }
 
     public void startServer() {
         try (var serverSocket = new ServerSocket(PORT)) {
@@ -54,7 +52,7 @@ public class TcpServer implements ClientServer {
             //noinspection InfiniteLoopStatement
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.printf("[%s] client %s connected\n", getDateTime(), getTCPSocketAddress(clientSocket));
+                System.out.printf("\n[%s] client %s connected\n", getDateTime(), getAddressAndPort(clientSocket));
                 executorService.submit(new ClientHandler(clientSocket));
             }
         } catch (IOException e) {
@@ -74,16 +72,16 @@ public class TcpServer implements ClientServer {
         public void run() {
             try (var inputStream = socket.getInputStream(); var outputStream = socket.getOutputStream()) {
                 var request = Message.readFrom(inputStream);
-                System.out.printf("[%s] received from client %s request %s\n", getDateTime(), TcpServer.getTCPSocketAddress(socket), request);
+                System.out.printf("[%s] received from client %s request %s\n", getDateTime(), getAddressAndPort(socket), request);
 
                 var response = methodsHandlers.get(request.getHeader()).apply(request);
-                System.out.printf("[%s] computed response for client %s: %s\n", getDateTime(), TcpServer.getTCPSocketAddress(socket), response);
+                System.out.printf("[%s] computed response for client %s: %s\n", getDateTime(), getAddressAndPort(socket), response);
 
                 response.writeTo(outputStream);
-                System.out.printf("[%s] sent response to client %s\n", getDateTime(), TcpServer.getTCPSocketAddress(socket));
+                System.out.printf("[%s] sent response to client %s\n", getDateTime(), getAddressAndPort(socket));
             }
             catch (IOException e) {
-                System.out.printf("[%s] handler for client %s caught an exception:\n", getDateTime(), TcpServer.getTCPSocketAddress(socket));
+                System.out.printf("[%s] handler for client %s caught an exception:\n", getDateTime(), getAddressAndPort(socket));
                 e.printStackTrace();
             }
         }

@@ -35,8 +35,7 @@ public class JDBCConfig {
         dataSource.setDriverClassName(Driver.class.getName());
         dataSource.setUsername(username);
         dataSource.setPassword(password);
-//        dataSource.setUrl(url);
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/catalog-sdi-lab10");
+        dataSource.setUrl(url);
         dataSource.setInitialSize(2);
 
         return dataSource;

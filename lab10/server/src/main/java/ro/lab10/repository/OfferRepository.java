@@ -53,7 +53,7 @@ public class OfferRepository extends JDBCRepository<Pair<Long, Long>, Offer> {
     @Override
     public Optional<Offer> save(Offer entity) throws ValidatorException {
         validator.validate(entity);
-        var sql = "INSERT INTO %s VALUES (?, ?, ?)".formatted(tableName);
+        var sql = "INSERT INTO %s (agencyId, estateId, price) VALUES (?, ?, ?)".formatted(tableName);
 
         jdbcOperations.update(sql, entity.getAgencyId(), entity.getEstateId(), entity.getPrice());
         return Optional.empty();

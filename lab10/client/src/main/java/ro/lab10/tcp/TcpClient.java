@@ -28,4 +28,12 @@ public class TcpClient implements ClientServer {
             throw new AppException(String.format("[%s] sendAndReceive(%s) failed\n", getDateTime(), request.toString()), e);
         }
     }
+
+    public Message sendAndReceive(String header, String body) {
+        return sendAndReceive(new Message(header, body));
+    }
+
+    public String sendAndReceiveBody(String header, String body) {
+        return sendAndReceive(header, body).getBody();
+    }
 }

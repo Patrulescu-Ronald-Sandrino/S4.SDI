@@ -8,6 +8,7 @@ import ro.lab10.repository.CustomerRepository;
 import ro.lab10.repository.EstateRepository;
 import ro.lab10.repository.OfferRepository;
 
+import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -23,8 +24,8 @@ public class Service {
     @Autowired
     private OfferRepository offerRepository;
 
-    public Set<Agency> getAgencies() {
-        return (Set<Agency>) agencyRepository.findAll();
+    public List<Agency> getAgencies() {
+        return agencyRepository.findAll();
     }
 
     public void addAgency(String name, String address) {

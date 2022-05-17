@@ -51,7 +51,7 @@ public class AgencyRepository extends JDBCRepository<Long, Agency> {
     @Override
     public Optional<Agency> save(Agency entity) throws ValidatorException {
         validator.validate(entity);
-        var sql = "INSERT INTO %s VALUES (?, ?)".formatted(tableName);
+        var sql = "INSERT INTO %s (name, address) VALUES (?, ?)".formatted(tableName);
 
         jdbcOperations.update(sql, entity.getName(), entity.getAddress());
         return Optional.empty();

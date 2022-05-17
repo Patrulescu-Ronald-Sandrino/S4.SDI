@@ -4,12 +4,9 @@ import java.io.*;
 
 public class Message {
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    public static final String OK = "ok";
-    public static final String ERROR = "error";
 
     private final String header;
     private final String body;
-
     public Message(String header, String body) {
         this.header = header;
         this.body = body;
@@ -18,6 +15,14 @@ public class Message {
     public Message(String header) {
         this.header = header;
         this.body = "";
+    }
+
+    public static Message ok(String body) {
+        return new Message("ok", body);
+    }
+
+    public static Message error(String body) {
+        return new Message("error", body);
     }
 
     public String getHeader() {

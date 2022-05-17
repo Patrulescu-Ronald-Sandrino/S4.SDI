@@ -30,17 +30,23 @@ public class ServerApp {
     private static void addServiceHandlers(TcpServer tcpServer, ServerService serverService) {
         tcpServer.addHandler(AppService.GET_AGENCIES, request -> {
             try {
-                var convertor= new AgencyConvertor();
-
-                return new Message(Message.OK,
-                        StreamSupport.stream(serverService.getAgencies().get().spliterator(), false)
-                                .map(convertor::toMessage)
-                                .collect(Collectors.joining(Message.LINE_SEPARATOR)));
+                return Message.ok(serverService.getAgencies().get());
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
-                return new Message(Message.ERROR, e.getMessage());
+                return Message.error(e.getMessage());
             }
         });
+        
+        tcpServer.addHandler(AppService.ADD_AGENCY, request -> {
+            try {
+                String[] arguments = request.getBody().split(AppService.ARGUMENTS_SEPARATOR);
+                return Message.ok(serverService.addAgency(arguments[0], arguments[1]).get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                return Message.error(e.getMessage());
+            }
+        });
+
         // TODO: add handlers
     }
 }

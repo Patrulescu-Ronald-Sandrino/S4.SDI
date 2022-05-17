@@ -1,21 +1,21 @@
 package ro.lab10.ui;
 
 import ro.lab10.service.AppService;
-import ro.lab10.service.ClientService;
 import ro.lab10.tools.IO;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
 public class ConsoleMenuUI {
     private final Map<Integer, String> optionsDescriptions = new HashMap<>();
     private final Map<Integer, Runnable> optionsHandlers = new HashMap<>();
     private int optionsCount = 0;
-    private final AppService clientService;
+    private final AppService service;
     private final ExecutorService executorService;
 
-    public ConsoleMenuUI(ClientService clientService, ExecutorService executorService) {
-        this.clientService = clientService;
+    public ConsoleMenuUI(AppService clientService, ExecutorService executorService) {
+        this.service = clientService;
         this.executorService = executorService;
         prepareOptions();
     }
@@ -27,7 +27,6 @@ public class ConsoleMenuUI {
                 int option = IO.readInteger("Your option: ");
 
                 if (option == 0) {
-                    executorService.shutdown();
                     break;
                 }
 
@@ -46,7 +45,7 @@ public class ConsoleMenuUI {
                 IO.writeLine(e.getMessage());
             }
         }
-
+        executorService.shutdown();
     }
 
     // L2
@@ -54,16 +53,22 @@ public class ConsoleMenuUI {
     private void prepareOptions() {
 //        BiFunction<String, Runnable, Map.Entry<String, Runnable>> createEntry = AbstractMap.SimpleEntry::new;
         Runnable notImplemented = () -> System.out.println("Not implemented");
+
         addOption("Exit", null);
+        addOption("Show agencies", this::showAgencies);
         addOption("Add agency", this::addAgency);
         addOption("Update agency", this::updateAgency);
         addOption("Remove agency", this::removeAgency);
-        addOption("Show agencies", this::showAgencies);
+
         // TODO: options for customer
+
         // TODO: options for estate
+
         // TODO: options for offer
+
         // TODO: show by <entity> ex: showPropertiesByUser
         // TODO: top most <adj> <entity> ex: showTopMostInterestingProperties
+
         addOption("NOT IMPLEMENTED", notImplemented);
     }
 
@@ -81,10 +86,15 @@ public class ConsoleMenuUI {
         optionsHandlers.put(optionsCount++, handler);
     }
 
-    // L4
+    private void showAgencies() {
+        handleCompletedServiceCall(service.getAgencies());
+    }
 
     private void addAgency() {
-        System.out.println("add agency - Not implemented");
+        var name = IO.readString("Agency name: ");
+        var address = IO.readString("Agency address: ");
+
+        handleCompletedServiceCall(service.addAgency(name, address));
     }
 
     private void updateAgency() {
@@ -95,8 +105,16 @@ public class ConsoleMenuUI {
 
     }
 
+    // L4
 
-    private void showAgencies() {
-
+    public void handleCompletedServiceCall(CompletableFuture<String> result) {
+        result.whenComplete((s, throwable) -> {
+           if (throwable == null) {
+               IO.writeLine(s);
+           }
+           else {
+               IO.writeLine(throwable.getMessage());
+           }
+        });
     }
 }
