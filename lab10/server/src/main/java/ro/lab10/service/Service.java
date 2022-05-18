@@ -8,8 +8,7 @@ import ro.lab10.repository.CustomerRepository;
 import ro.lab10.repository.EstateRepository;
 import ro.lab10.repository.OfferRepository;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -110,6 +109,26 @@ public class Service {
 
         estateRepository.findOne(id).orElseThrow(getEntityWithIdNotFoundExceptionSupplier(id));
         return offers.stream().filter(offer -> Objects.equals(offer.getEstateId(), id)).collect(Collectors.toList());
+    }
+
+    public List<Estate> getMostInterestingEstates() {
+        Map<Long, Estate> estates = new HashMap<>();
+        Map<Estate, Integer> estatesInterest = new HashMap<>();
+        estateRepository.findAll().forEach(estate -> {
+            estates.put(estate.getId(), estate);
+            estatesInterest.put(estate, 0);
+        });
+
+        offerRepository.findAll().forEach(offer -> {
+            var estate = estates.get(offer.getEstateId());
+            var currentInterest = estatesInterest.getOrDefault(estate, 0);
+            estatesInterest.put(estate, currentInterest + 1);
+        });
+
+        return estatesInterest.entrySet().stream()
+                .sorted(Comparator.comparingInt(value -> - value.getValue()))
+                .limit(5).map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     // L2

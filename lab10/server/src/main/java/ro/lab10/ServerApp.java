@@ -85,6 +85,7 @@ public class ServerApp {
         addArgumentsBasedServiceHandler.accept(AppService.REMOVE_OFFER, arguments -> serverService.removeOffer(Long.valueOf(arguments[0]), Long.valueOf(arguments[1])));
 
         addArgumentsBasedServiceHandler.accept(AppService.GET_ESTATE_OFFERS, arguments -> serverService.getEstateOffers(Long.valueOf(arguments[0])));
+        addArgumentsBasedServiceHandler.accept(AppService.GET_MOST_INTERESTING_ESTATES, arguments -> serverService.getMostInterestingEstates());
     }
 
     // L2/3

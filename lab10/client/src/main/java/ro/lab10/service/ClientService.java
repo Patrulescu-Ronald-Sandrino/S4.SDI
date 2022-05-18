@@ -101,6 +101,11 @@ public class ClientService extends ExecutorAppService {
         return sendAndReceiveBody(GET_ESTATE_OFFERS, convertArgumentsToMessageBody(Stream.of(id)));
     }
 
+    @Override
+    public CompletableFuture<String> getMostInterestingEstates() {
+        return sendAndReceiveBody(GET_MOST_INTERESTING_ESTATES);
+    }
+
     // L2
 
     private CompletableFuture<String> sendAndReceiveBody(String header, String body) {

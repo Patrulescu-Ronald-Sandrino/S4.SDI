@@ -90,6 +90,7 @@ public class ConsoleMenuUI {
 
 
         addOption("Show offers by estate", this::showEstateOffers);
+        addOption("Show the top 5 most interesting estates", this::showMostInterestingEstates);
 
         // TODO: show by <entity> ex: showPropertiesByUser
         // TODO: top most <adj> <entity> ex: showTopMostInterestingProperties
@@ -214,6 +215,10 @@ public class ConsoleMenuUI {
     private void showEstateOffers() {
         var id = IO.readLong("Estate id: ");
         performAndHandleServiceCall(service.getEstateOffers(id));
+    }
+
+    private void showMostInterestingEstates() {
+        performAndHandleServiceCall(service.getMostInterestingEstates());
     }
 
     // L4
