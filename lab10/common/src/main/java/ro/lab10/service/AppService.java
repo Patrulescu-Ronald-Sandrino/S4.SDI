@@ -27,6 +27,8 @@ public interface AppService {
     String UPDATE_OFFER = "updateOffer";
     String REMOVE_OFFER = "removeOffer";
 
+    String GET_ESTATE_OFFERS = "getEstateOffers";
+
     
     CompletableFuture<String> getAgencies();
     CompletableFuture<String> addAgency(String name, String address);
@@ -47,4 +49,6 @@ public interface AppService {
     CompletableFuture<String> addOffer(Long agencyId, Long estateId, double price);
     CompletableFuture<String> updateOffer(Long agencyId, Long estateId, double price);
     CompletableFuture<String> removeOffer(Long agencyId, Long estateId);
+
+    CompletableFuture<String> getEstateOffers(Long id);
 }

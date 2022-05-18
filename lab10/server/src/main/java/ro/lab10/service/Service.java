@@ -9,7 +9,9 @@ import ro.lab10.repository.EstateRepository;
 import ro.lab10.repository.OfferRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 
 @org.springframework.stereotype.Service
@@ -101,6 +103,13 @@ public class Service {
     public void removeOffer(Long agencyId, Long estateId) {
         var id = new Pair<>(agencyId, estateId);
         offerRepository.delete(id).orElseThrow(getExceptionSupplier("entity with id (%d, %d) not found".formatted(agencyId, estateId)));
+    }
+
+    public List<Offer> getEstateOffers(Long id) {
+        var offers = getOffers();
+
+        estateRepository.findOne(id).orElseThrow(getEntityWithIdNotFoundExceptionSupplier(id));
+        return offers.stream().filter(offer -> Objects.equals(offer.getEstateId(), id)).collect(Collectors.toList());
     }
 
     // L2

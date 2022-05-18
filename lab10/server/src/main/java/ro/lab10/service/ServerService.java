@@ -151,6 +151,11 @@ public class ServerService extends ExecutorAppService {
         });
     }
 
+    @Override
+    public CompletableFuture<String> getEstateOffers(Long id) {
+        return getAsyncCompletableFutureForGetAll(() -> service.getEstateOffers(id));
+    }
+
     // L2
 
     private <T> CompletableFuture<String> getAsyncCompletableFutureForGetAll(Supplier<List<T>> listSupplier) {

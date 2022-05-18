@@ -96,6 +96,11 @@ public class ClientService extends ExecutorAppService {
         return sendAndReceiveBody(REMOVE_OFFER, convertArgumentsToMessageBody(Stream.of(agencyId, estateId)));
     }
 
+    @Override
+    public CompletableFuture<String> getEstateOffers(Long id) {
+        return sendAndReceiveBody(GET_ESTATE_OFFERS, convertArgumentsToMessageBody(Stream.of(id)));
+    }
+
     // L2
 
     private CompletableFuture<String> sendAndReceiveBody(String header, String body) {

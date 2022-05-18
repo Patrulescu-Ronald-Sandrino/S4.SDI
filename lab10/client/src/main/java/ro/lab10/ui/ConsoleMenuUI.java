@@ -88,6 +88,9 @@ public class ConsoleMenuUI {
         addOption("Update offer", this::updateOffer);
         addOption("Remove offer\n", this::removeOffer);
 
+
+        addOption("Show offers by estate", this::showEstateOffers);
+
         // TODO: show by <entity> ex: showPropertiesByUser
         // TODO: top most <adj> <entity> ex: showTopMostInterestingProperties
 
@@ -206,6 +209,11 @@ public class ConsoleMenuUI {
         var agencyId = IO.readLong("Offer agency id: ");
         var estateId = IO.readLong("Offer estate id: ");
         performAndHandleServiceCall(service.removeOffer(agencyId, estateId));
+    }
+
+    private void showEstateOffers() {
+        var id = IO.readLong("Estate id: ");
+        performAndHandleServiceCall(service.getEstateOffers(id));
     }
 
     // L4
