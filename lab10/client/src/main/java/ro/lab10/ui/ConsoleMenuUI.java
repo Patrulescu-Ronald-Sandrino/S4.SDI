@@ -102,11 +102,16 @@ public class ConsoleMenuUI {
     }
 
     private void updateAgency() {
+        var id = IO.readLong("Agency id: ");
+        var name = IO.readString("Agency name: ");
+        var address = IO.readString("Agency address: ");
 
+        performAndHandleServiceCall(service.updateAgency(id, name, address));
     }
 
     private void removeAgency() {
-
+        var id = IO.readLong("Agency id: ");
+        performAndHandleServiceCall(service.removeAgency(id));
     }
 
     // L4

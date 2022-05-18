@@ -38,6 +38,19 @@ public class ServerService extends ExecutorAppService {
 
     @Override
     public CompletableFuture<String> getAgencies() {
+//        return CompletableFuture.supplyAsync(() -> {
+//            try {
+//                return service.getAgencies().stream()
+//                        .map(Objects::toString)
+//                        .map(agency -> agency + LINE_SEPARATOR)
+//                        .reduce(String::concat)
+//                        .orElse("Empty");
+//            }
+//            catch (AppException e) {
+//                e.printStackTrace(System.err);
+//                return e.getMessage();
+//            }
+//        }, executorService);
         return getAsyncCompletableFutureForGetAll(() -> service.getAgencies());
     }
 
@@ -46,6 +59,22 @@ public class ServerService extends ExecutorAppService {
         return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
             service.addAgency(name, address);
             return "Agency was added";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> updateAgency(Long id, String name, String address) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.updateAgency(id, name, address);
+            return "Agency was updated";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> removeAgency(Long id) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.removeAgency(id);
+            return "Agency was removed";
         });
     }
 

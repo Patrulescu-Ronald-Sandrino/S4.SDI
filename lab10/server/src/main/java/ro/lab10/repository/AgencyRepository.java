@@ -74,7 +74,7 @@ public class AgencyRepository extends JDBCRepository<Long, Agency> {
         validator.validate(entity);
         var sql = "UPDATE %s SET name = ?, address = ? WHERE id = ?".formatted(tableName);
 
-        return jdbcOperations.update(sql, entity.getName(), entity.getAddress()) == 1
+        return jdbcOperations.update(sql, entity.getName(), entity.getAddress(), entity.getId()) == 1
                 ? Optional.empty()
                 : Optional.of(entity);
     }

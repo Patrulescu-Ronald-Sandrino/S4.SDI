@@ -22,6 +22,7 @@ public class TcpClient implements ClientServer {
 
             var response = Message.readFrom(inputStream);
             logsWriter.printf("[%s] received response: %s%n", getDateTime(), response);
+            logsWriter.println();
             logsWriter.close();
 
             return response;

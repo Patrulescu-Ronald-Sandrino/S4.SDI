@@ -3,8 +3,12 @@ package ro.lab10.service;
 import ro.lab10.tcp.TcpClient;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 
 public class ClientService extends ExecutorAppService { // TODO: return just CompletableFuture<String>
@@ -25,6 +29,17 @@ public class ClientService extends ExecutorAppService { // TODO: return just Com
         return sendAndReceiveBody(ADD_AGENCY, name + AppService.ARGUMENTS_SEPARATOR + address);
     }
 
+    @Override
+    public CompletableFuture<String> updateAgency(Long id, String name, String address) {
+//        return sendAndReceiveBody(UPDATE_AGENCY, id + AppService.ARGUMENTS_SEPARATOR + name + AppService.ARGUMENTS_SEPARATOR + address);
+        return sendAndReceiveBody(UPDATE_AGENCY, convertArgumentsToMessageBody(Stream.of(id, name, address)));
+    }
+
+    @Override
+    public CompletableFuture<String> removeAgency(Long id) {
+        return sendAndReceiveBody(REMOVE_AGENCY, id.toString());
+    }
+
     // L2
 
     private CompletableFuture<String> sendAndReceiveBody(String header, String body) {
@@ -33,5 +48,12 @@ public class ClientService extends ExecutorAppService { // TODO: return just Com
 
     private CompletableFuture<String> sendAndReceiveBody(String header) {
         return sendAndReceiveBody(header, "");
+    }
+
+    private String convertArgumentsToMessageBody(Stream<Object> arguments) {
+        return arguments
+                .map(Object::toString)
+                .reduce((s, s2) -> s + AppService.ARGUMENTS_SEPARATOR + s2)
+                .orElse("");
     }
 }

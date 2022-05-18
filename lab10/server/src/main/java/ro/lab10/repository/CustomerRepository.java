@@ -73,7 +73,7 @@ public class CustomerRepository extends JDBCRepository<Long, Customer> {
         validator.validate(entity);
         var sql = "UPDATE %s SET name = ?, email = ? WHERE id = ?".formatted(tableName);
 
-        return jdbcOperations.update(sql, entity.getName(), entity.getEmail()) == 1
+        return jdbcOperations.update(sql, entity.getName(), entity.getEmail(), entity.getId()) == 1
                 ? Optional.empty()
                 : Optional.of(entity);
     }

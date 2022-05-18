@@ -21,6 +21,12 @@ public class IO {
         return readInteger("");
     }
 
+    public static long readLong(String prompt) {
+        write(prompt);
+        var scanner = new Scanner(System.in);
+        return Long.parseLong(scanner.nextLine());
+    }
+
     public static String readString(String prompt) {
         write(prompt);
         var scanner = new Scanner(System.in);

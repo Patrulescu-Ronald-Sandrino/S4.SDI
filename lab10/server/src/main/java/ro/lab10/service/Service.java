@@ -31,10 +31,6 @@ public class Service {
         agencyRepository.save(new Agency(name, address));
     }
 
-    public Agency findAgency(Long id) {
-        return agencyRepository.findOne(id).orElseThrow(getEntityWithIdNotFoundExceptionSupplier(id));
-    }
-
     public void updateAgency(Long id, String name, String address) {
         agencyRepository.update(new Agency(id, name, address))
                 .ifPresent(agency -> {

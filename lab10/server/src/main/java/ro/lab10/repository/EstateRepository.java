@@ -73,7 +73,7 @@ public class EstateRepository extends JDBCRepository<Long, Estate> {
         validator.validate(entity);
         var sql = "UPDATE %s SET address = ?, surface = ? WHERE id = ?".formatted(tableName);
 
-        return jdbcOperations.update(sql, entity.getAddress(), entity.getSurface()) == 1
+        return jdbcOperations.update(sql, entity.getAddress(), entity.getSurface(), entity.getId()) == 1
                 ? Optional.empty()
                 : Optional.of(entity);
     }
