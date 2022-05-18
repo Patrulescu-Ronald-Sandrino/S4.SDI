@@ -65,6 +65,92 @@ public class ServerService extends ExecutorAppService {
         });
     }
 
+    @Override
+    public CompletableFuture<String> getCustomers() {
+        return getAsyncCompletableFutureForGetAll(() -> service.getCustomers());
+    }
+
+    @Override
+    public CompletableFuture<String> addCustomer(String name, String email) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.addCustomer(name, email);
+            return "Customer was added";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> updateCustomer(Long id, String name, String email) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.updateCustomer(id, name, email);
+            return "Customer was updated";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> removeCustomer(Long id) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.removeCustomer(id);
+            return "Customer was removed";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> getEstates() {
+        return getAsyncCompletableFutureForGetAll(() -> service.getEstates());
+    }
+
+    public CompletableFuture<String> addEstate(String address, double surface) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.addEstate(address, surface);
+            return "Estate was added";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> updateEstate(Long id, String address, double surface) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.updateEstate(id, address, surface);
+            return "Estate was updated";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> removeEstate(Long id) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.removeEstate(id);
+            return "Estate was removed";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> getOffers() {
+        return getAsyncCompletableFutureForGetAll(() -> service.getOffers());
+    }
+
+    @Override
+    public CompletableFuture<String> addOffer(Long agencyId, Long estateId, double price) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.addOffer(agencyId, estateId, price);
+            return "Offer was added";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> updateOffer(Long agencyId, Long estateId, double price) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.updateOffer(agencyId, estateId, price);
+            return "Offer was updated";
+        });
+    }
+
+    @Override
+    public CompletableFuture<String> removeOffer(Long agencyId, Long estateId) {
+        return getAsyncCompletableFutureForExceptionableServiceCall(() -> {
+            service.removeOffer(agencyId, estateId);
+            return "Offer was removed";
+        });
+    }
+
     // L2
 
     private <T> CompletableFuture<String> getAsyncCompletableFutureForGetAll(Supplier<List<T>> listSupplier) {

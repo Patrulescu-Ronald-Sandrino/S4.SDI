@@ -35,20 +35,33 @@ public class ServerApp {
 
 //        BiConsumer<String, CompletableFuture<String>> addWrappedHandler = (methodName, handler) -> {
 ////            tcpServer.addHandler(methodName, wrapHandlerInTryCatchBlock(handler));
-//            addArgumentsBasedServiceHandler.accept(methodName, strings -> handler);
+//            addArgumentsBasedServiceHandler.accept(methodName, arguments -> handler);
 //        };
 //        addWrappedHandler.accept(AppService.GET_AGENCIES, serverService.getAgencies()); // this does DOESN'T WORK, returns the same values that were present at the start of the server
 
-        addArgumentsBasedServiceHandler.accept(AppService.GET_AGENCIES, strings -> serverService.getAgencies());
-        addArgumentsBasedServiceHandler.accept(AppService.ADD_AGENCY, strings -> serverService.addAgency(strings[0], strings[1]));
-        addArgumentsBasedServiceHandler.accept(AppService.REMOVE_AGENCY, arguments -> serverService.removeAgency(Long.valueOf(arguments[0])));
+        addArgumentsBasedServiceHandler.accept(AppService.GET_AGENCIES, arguments -> serverService.getAgencies());
+        addArgumentsBasedServiceHandler.accept(AppService.ADD_AGENCY, arguments -> serverService.addAgency(arguments[0], arguments[1]));
         addArgumentsBasedServiceHandler.accept(AppService.UPDATE_AGENCY, arguments ->
                 serverService.updateAgency(Long.valueOf(arguments[0]), arguments[1], arguments[2]));
+        addArgumentsBasedServiceHandler.accept(AppService.REMOVE_AGENCY, arguments -> serverService.removeAgency(Long.valueOf(arguments[0])));
 
-//        addArgumentsBasedServiceHandler.accept(AppService.GET_CUSTOMERS, strings -> serverService.getCustomers());
+        addArgumentsBasedServiceHandler.accept(AppService.GET_CUSTOMERS, arguments -> serverService.getCustomers());
+        addArgumentsBasedServiceHandler.accept(AppService.ADD_CUSTOMER, arguments -> serverService.addCustomer(arguments[0], arguments[1]));
+        addArgumentsBasedServiceHandler.accept(AppService.UPDATE_CUSTOMER, arguments ->
+                serverService.updateCustomer(Long.valueOf(arguments[0]), arguments[1], arguments[2]));
+        addArgumentsBasedServiceHandler.accept(AppService.REMOVE_CUSTOMER, arguments -> serverService.removeCustomer(Long.valueOf(arguments[0])));
 
+        addArgumentsBasedServiceHandler.accept(AppService.GET_ESTATES, arguments -> serverService.getEstates());
+        addArgumentsBasedServiceHandler.accept(AppService.ADD_ESTATE, arguments -> serverService.addEstate(arguments[0], Double.parseDouble(arguments[1])));
+        addArgumentsBasedServiceHandler.accept(AppService.UPDATE_ESTATE, arguments ->
+                serverService.updateEstate(Long.valueOf(arguments[0]), arguments[1], Double.parseDouble(arguments[2])));
+        addArgumentsBasedServiceHandler.accept(AppService.REMOVE_ESTATE, arguments -> serverService.removeEstate(Long.valueOf(arguments[0])));
 
-        // TODO: add handlers
+        addArgumentsBasedServiceHandler.accept(AppService.GET_OFFERS, arguments -> serverService.getOffers());
+        addArgumentsBasedServiceHandler.accept(AppService.ADD_OFFER, arguments -> serverService.addOffer(Long.valueOf(arguments[0]), Long.valueOf(arguments[1]), Double.parseDouble(arguments[2])));
+        addArgumentsBasedServiceHandler.accept(AppService.UPDATE_OFFER, arguments ->
+                serverService.updateOffer(Long.valueOf(arguments[0]), Long.valueOf(arguments[1]), Double.parseDouble(arguments[2])));
+        addArgumentsBasedServiceHandler.accept(AppService.REMOVE_OFFER, arguments -> serverService.removeOffer(Long.valueOf(arguments[0]), Long.valueOf(arguments[1])));
     }
 
     // L2/3
@@ -58,7 +71,7 @@ public class ServerApp {
     }
 
     private static UnaryOperator<Message> wrapHandlerInTryCatchBlock(CompletableFuture<String> handler) {
-        return wrapHandlerInTryCatchBlock(strings -> handler);
+        return wrapHandlerInTryCatchBlock(arguments -> handler);
     }
 
     private static UnaryOperator<Message> wrapHandlerInTryCatchBlock(Function<String[], CompletableFuture<String>> handler) {

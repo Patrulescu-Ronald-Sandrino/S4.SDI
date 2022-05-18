@@ -64,11 +64,20 @@ public class ConsoleMenuUI {
         addOption("Update agency", this::updateAgency);
         addOption("Remove agency", this::removeAgency);
 
-        // TODO: options for customer
+        addOption("Show customers", this::showCustomers);
+        addOption("Add customer", this::addCustomer);
+        addOption("Update customer", this::updateCustomer);
+        addOption("Remove customer", this::removeCustomer);
 
-        // TODO: options for estate
+        addOption("Show estates", this::showEstates);
+        addOption("Add estate", this::addEstate);
+        addOption("Update estate", this::updateEstate);
+        addOption("Remove estate", this::removeEstate);
 
-        // TODO: options for offer
+        addOption("Show offers", this::showOffers);
+        addOption("Add offer", this::addOffer);
+        addOption("Update offer", this::updateOffer);
+        addOption("Remove offer", this::removeOffer);
 
         // TODO: show by <entity> ex: showPropertiesByUser
         // TODO: top most <adj> <entity> ex: showTopMostInterestingProperties
@@ -113,6 +122,80 @@ public class ConsoleMenuUI {
     private void removeAgency() {
         var id = IO.readLong("Agency id: ");
         performAndHandleServiceCall(service.removeAgency(id));
+    }
+
+    private void showCustomers() {
+        performAndHandleServiceCall(service.getCustomers());
+    }
+
+    private void addCustomer() {
+        var name = IO.readString("Customer name: ");
+        var email = IO.readString("Customer email: ");
+
+        performAndHandleServiceCall(service.addCustomer(name, email));
+    }
+
+    private void updateCustomer() {
+        var id = IO.readLong("Customer id: ");
+        var name = IO.readString("Customer name: ");
+        var email = IO.readString("Customer email: ");
+
+        performAndHandleServiceCall(service.updateCustomer(id, name, email));
+    }
+
+    private void removeCustomer() {
+        var id = IO.readLong("Customer id: ");
+        performAndHandleServiceCall(service.removeCustomer(id));
+    }
+
+    private void showEstates() {
+        performAndHandleServiceCall(service.getEstates());
+    }
+
+    private void addEstate() {
+        var name = IO.readString("Estate name: ");
+        double surface = IO.readDouble("Estate surface: ");
+
+        performAndHandleServiceCall(service.addEstate(name, surface));
+    }
+
+    private void updateEstate() {
+        var id = IO.readLong("Estate id: ");
+        var name = IO.readString("Estate name: ");
+        var surface = IO.readDouble("Estate surface: ");
+
+        performAndHandleServiceCall(service.updateEstate(id, name, surface));
+    }
+
+    private void removeEstate() {
+        var id = IO.readLong("Estate id: ");
+        performAndHandleServiceCall(service.removeEstate(id));
+    }
+
+    private void showOffers() {
+        performAndHandleServiceCall(service.getOffers());
+    }
+
+    private void addOffer() {
+        var agencyId = IO.readLong("Offer agency id: ");
+        var estateId = IO.readLong("Offer estate id: ");
+        double price = IO.readDouble("Offer price: ");
+
+        performAndHandleServiceCall(service.addOffer(agencyId, estateId, price));
+    }
+
+    private void updateOffer() {
+        var agencyId = IO.readLong("Offer agency id: ");
+        var estateId = IO.readLong("Offer estate id: ");
+        double price = IO.readDouble("Offer price: ");
+
+        performAndHandleServiceCall(service.updateOffer(agencyId, estateId, price));
+    }
+
+    private void removeOffer() {
+        var agencyId = IO.readLong("Offer agency id: ");
+        var estateId = IO.readLong("Offer estate id: ");
+        performAndHandleServiceCall(service.removeOffer(agencyId, estateId));
     }
 
     // L4

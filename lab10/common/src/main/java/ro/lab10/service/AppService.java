@@ -27,10 +27,24 @@ public interface AppService {
     String UPDATE_OFFER = "updateOffer";
     String REMOVE_OFFER = "removeOffer";
 
+    
     CompletableFuture<String> getAgencies();
     CompletableFuture<String> addAgency(String name, String address);
     CompletableFuture<String> updateAgency(Long id, String name, String address);
     CompletableFuture<String> removeAgency(Long id);
 
-    // TODO: for Customer, Estate, Offer
+    CompletableFuture<String> getCustomers();
+    CompletableFuture<String> addCustomer(String name, String email);
+    CompletableFuture<String> updateCustomer(Long id, String name, String email);
+    CompletableFuture<String> removeCustomer(Long id);
+
+    CompletableFuture<String> getEstates();
+    CompletableFuture<String> addEstate(String address, double surface);
+    CompletableFuture<String> updateEstate(Long id, String address, double surface);
+    CompletableFuture<String> removeEstate(Long id);
+
+    CompletableFuture<String> getOffers();
+    CompletableFuture<String> addOffer(Long agencyId, Long estateId, double price);
+    CompletableFuture<String> updateOffer(Long agencyId, Long estateId, double price);
+    CompletableFuture<String> removeOffer(Long agencyId, Long estateId);
 }
