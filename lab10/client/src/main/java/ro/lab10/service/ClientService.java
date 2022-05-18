@@ -3,12 +3,9 @@ package ro.lab10.service;
 import ro.lab10.tcp.TcpClient;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 
 public class ClientService extends ExecutorAppService { // TODO: return just CompletableFuture<String>
@@ -26,12 +23,11 @@ public class ClientService extends ExecutorAppService { // TODO: return just Com
 
     @Override
     public CompletableFuture<String> addAgency(String name, String address) {
-        return sendAndReceiveBody(ADD_AGENCY, name + AppService.ARGUMENTS_SEPARATOR + address);
+        return sendAndReceiveBody(ADD_AGENCY, convertArgumentsToMessageBody(Stream.of(name, address)));
     }
 
     @Override
     public CompletableFuture<String> updateAgency(Long id, String name, String address) {
-//        return sendAndReceiveBody(UPDATE_AGENCY, id + AppService.ARGUMENTS_SEPARATOR + name + AppService.ARGUMENTS_SEPARATOR + address);
         return sendAndReceiveBody(UPDATE_AGENCY, convertArgumentsToMessageBody(Stream.of(id, name, address)));
     }
 

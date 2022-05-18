@@ -1,10 +1,7 @@
 package ro.lab10.domain.validators;
 
-import ro.lab10.domain.Agency;
 import ro.lab10.domain.Pair;
 
-import java.util.AbstractMap;
-import java.util.Map;
 import java.util.stream.Stream;
 
 public abstract class Validator<T> {

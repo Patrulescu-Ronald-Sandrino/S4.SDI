@@ -3,7 +3,9 @@ package ro.lab10.ui;
 import ro.lab10.service.AppService;
 import ro.lab10.tools.IO;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
@@ -32,8 +34,7 @@ public class ConsoleMenuUI {
 
                 var optionHandler = optionsHandlers.get(option);
                 if (optionHandler == null) {
-                    IO.writeLine("Bad input value for option!");
-//                    printOptions();
+                    IO.writeLine("Bad option number!");
                 }
                 else {
                     optionHandler.run();
@@ -41,7 +42,7 @@ public class ConsoleMenuUI {
                 }
             }
             catch (NumberFormatException e) {
-                IO.writeLine("Bad input type for option!");
+                IO.writeLine("Bad input!");
             }
             catch (Exception e) {
                 IO.writeLine(e.getMessage());
@@ -126,6 +127,5 @@ public class ConsoleMenuUI {
            }
            printOptions();
         });
-//        result.join(); // fixes: the menu being shown before a task is completed due to it being asynchronous
     }
 }

@@ -6,12 +6,12 @@ import ro.lab10.service.ServerService;
 import ro.lab10.tcp.Message;
 import ro.lab10.tcp.TcpServer;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
+
 
 public class ServerApp {
     public static void main(String[] args) {
@@ -33,54 +33,19 @@ public class ServerApp {
         BiConsumer<String, Function<String[], CompletableFuture<String>>> addArgumentsBasedServiceHandler =
                 (s, completableFutureFunction) -> tcpServer.addHandler(s, wrapHandlerInTryCatchBlock(completableFutureFunction));
 
-        BiConsumer<String, CompletableFuture<String>> addWrappedHandler = (methodName, handler) -> {
-//            tcpServer.addHandler(methodName, wrapHandlerInTryCatchBlock(handler));
-            addArgumentsBasedServiceHandler.accept(methodName, strings -> handler);
-        };
-//        Function<Message, String[]> getMessageArguments = request -> request.getBody().split(AppService.ARGUMENTS_SEPARATOR);
-
-        // Message -> String[]
-        // String[] -> CompletableFuture<String>
-        // CompletableFuture<String> -> Message
-//        Function<String[], CompletableFuture<String>> addServiceHandler = arguments -> serverService.updateAgency(Long.valueOf(arguments[0]), arguments[1], arguments[2]);
-
+//        BiConsumer<String, CompletableFuture<String>> addWrappedHandler = (methodName, handler) -> {
+////            tcpServer.addHandler(methodName, wrapHandlerInTryCatchBlock(handler));
+//            addArgumentsBasedServiceHandler.accept(methodName, strings -> handler);
+//        };
 //        addWrappedHandler.accept(AppService.GET_AGENCIES, serverService.getAgencies()); // this does DOESN'T WORK, returns the same values that were present at the start of the server
+
         addArgumentsBasedServiceHandler.accept(AppService.GET_AGENCIES, strings -> serverService.getAgencies());
-
-//        tcpServer.addHandler(AppService.GET_AGENCIES, request -> {
-//            try {
-//                return Message.ok(serverService.getAgencies().get());
-//            } catch (InterruptedException | ExecutionException e) {
-//                e.printStackTrace();
-//                return Message.error(e.getMessage());
-//            }
-//        });
-        
-        tcpServer.addHandler(AppService.ADD_AGENCY, request -> {
-            try {
-//                String[] arguments = getMessageArguments.apply(request);
-                String[] arguments = getMessageArguments(request);
-                return Message.ok(serverService.addAgency(arguments[0], arguments[1]).get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-                return Message.error(e.getMessage());
-            }
-        });
-
-//        addWrappedHandler.accept(AppService.UPDATE_AGENCY, ser);
-
+        addArgumentsBasedServiceHandler.accept(AppService.ADD_AGENCY, strings -> serverService.addAgency(strings[0], strings[1]));
         addArgumentsBasedServiceHandler.accept(AppService.REMOVE_AGENCY, arguments -> serverService.removeAgency(Long.valueOf(arguments[0])));
         addArgumentsBasedServiceHandler.accept(AppService.UPDATE_AGENCY, arguments ->
                 serverService.updateAgency(Long.valueOf(arguments[0]), arguments[1], arguments[2]));
-//        tcpServer.addHandler(AppService.UPDATE_AGENCY, request -> {
-//            try {
-//                String[] arguments = request.getBody().split(AppService.ARGUMENTS_SEPARATOR);
-//                return Message.ok(serverService.updateAgency(Long.valueOf(arguments[0]), arguments[1], arguments[2]).get());
-//            } catch (InterruptedException | ExecutionException e) {
-//                e.printStackTrace();
-//                return Message.error(e.getMessage());
-//            }
-//        });
+
+//        addArgumentsBasedServiceHandler.accept(AppService.GET_CUSTOMERS, strings -> serverService.getCustomers());
 
 
         // TODO: add handlers
@@ -94,14 +59,6 @@ public class ServerApp {
 
     private static UnaryOperator<Message> wrapHandlerInTryCatchBlock(CompletableFuture<String> handler) {
         return wrapHandlerInTryCatchBlock(strings -> handler);
-//        return request -> {
-//            try {
-//                return Message.ok(handler.get());
-//            } catch (InterruptedException | ExecutionException e) {
-//                e.printStackTrace();
-//                return Message.error(e.getMessage());
-//            }
-//        };
     }
 
     private static UnaryOperator<Message> wrapHandlerInTryCatchBlock(Function<String[], CompletableFuture<String>> handler) {

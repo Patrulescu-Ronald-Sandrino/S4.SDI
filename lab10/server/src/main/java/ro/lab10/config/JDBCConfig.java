@@ -1,14 +1,14 @@
 package ro.lab10.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.postgresql.Driver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
-import org.postgresql.Driver;
 
 @Configuration
 public class JDBCConfig {
