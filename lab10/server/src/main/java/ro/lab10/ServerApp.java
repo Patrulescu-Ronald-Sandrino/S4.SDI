@@ -1,15 +1,12 @@
 package ro.lab10;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ro.lab10.domain.convertors.AgencyConvertor;
 import ro.lab10.service.AppService;
 import ro.lab10.service.ServerService;
 import ro.lab10.tcp.Message;
 import ro.lab10.tcp.TcpServer;
 
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class ServerApp {
     public static void main(String[] args) {

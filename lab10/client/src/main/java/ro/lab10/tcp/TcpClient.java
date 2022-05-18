@@ -13,7 +13,7 @@ public class TcpClient implements ClientServer {
         try (var socket = new Socket(HOST, PORT)) {
             var outputStream = socket.getOutputStream();
             var inputStream = socket.getInputStream();
-            var logsWriter = new PrintWriter("client_logs.log");
+            var logsWriter = new PrintWriter(new FileOutputStream("client_logs.log", true)); // https://stackoverflow.com/questions/8210616/printwriter-append-method-not-appending
 
             logsWriter.printf("[%s] sending request: %s%n", getDateTime(), request.toString());
 

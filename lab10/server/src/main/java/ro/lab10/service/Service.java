@@ -9,7 +9,6 @@ import ro.lab10.repository.EstateRepository;
 import ro.lab10.repository.OfferRepository;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Supplier;
 
 
@@ -38,16 +37,25 @@ public class Service {
 
     public void updateAgency(Long id, String name, String address) {
         agencyRepository.update(new Agency(id, name, address))
-                .ifPresent((agency) -> {throw getEntityWithIdNotFoundExceptionSupplier(id).get();});
+                .ifPresent(agency -> {
+                    throw getEntityWithIdNotFoundExceptionSupplier(id).get();
+                });
     }
 
     public void removeAgency(Long id) {
         agencyRepository.delete(id).orElseThrow(getEntityWithIdNotFoundExceptionSupplier(id));
     }
 
-    private static Supplier<AppException> getEntityWithIdNotFoundExceptionSupplier(Long id) {
-        return () -> new AppException("entity with id %d not found".formatted(id));
+    // L2
+
+    private static Supplier<AppException> getExceptionSupplier(String message) {
+        return () -> new AppException(message);
     }
 
-//    public vo
+    // L3
+
+    private static Supplier<AppException> getEntityWithIdNotFoundExceptionSupplier(Long id) {
+//        return () -> new AppException("entity with id %d not found".formatted(id));
+        return getExceptionSupplier("entity with id %d not found".formatted(id));
+    }
 }
