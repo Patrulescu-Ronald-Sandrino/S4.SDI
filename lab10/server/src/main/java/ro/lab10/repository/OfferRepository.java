@@ -1,12 +1,14 @@
 package ro.lab10.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import ro.lab10.domain.Offer;
 import ro.lab10.domain.Pair;
 import ro.lab10.domain.validators.OfferValidator;
 import ro.lab10.domain.validators.ValidatorException;
+import ro.lab10.exceptions.AppException;
 import ro.lab10.tools.Checks;
 
 import java.util.Optional;
@@ -28,7 +30,9 @@ public class OfferRepository extends JDBCRepository<Pair<Long, Long>, Offer> {
                     agencyId INT,
                     estateId INT,
                     price REAL,
-                    PRIMARY KEY (agencyId, estateId)
+                    PRIMARY KEY (agencyId, estateId),
+                    FOREIGN KEY (agencyId) REFERENCES Agencies (id),
+                    FOREIGN KEY (estateId) REFERENCES Estates (id)
                 )""";
     }
 
@@ -45,7 +49,7 @@ public class OfferRepository extends JDBCRepository<Pair<Long, Long>, Offer> {
     @Override
     public Optional<Offer> findOne(Pair<Long, Long> id) {
         Checks.ThrowIfNull(id, "id must not be null");
-        var sql = "SELECT * FROM %s WHERE agencyId = ?, estateId = ?".formatted(tableName);
+        var sql = "SELECT * FROM %s WHERE agencyId = ? AND estateId = ?".formatted(tableName);
 
         return jdbcOperations.query(sql, getRowMapper(), id.getLeft(), id.getRight()).stream().findFirst();
     }
@@ -55,8 +59,16 @@ public class OfferRepository extends JDBCRepository<Pair<Long, Long>, Offer> {
         validator.validate(entity);
         var sql = "INSERT INTO %s (agencyId, estateId, price) VALUES (?, ?, ?)".formatted(tableName);
 
-        jdbcOperations.update(sql, entity.getAgencyId(), entity.getEstateId(), entity.getPrice());
-        return Optional.empty();
+        if (findOne(entity.getId()).isPresent()) {
+            return Optional.of(entity);
+        }
+        try {
+            jdbcOperations.update(sql, entity.getAgencyId(), entity.getEstateId(), entity.getPrice());
+            return Optional.empty();
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new AppException("Offer was NOT added: agency id and estate id must be existent PKs in their corresponding table");
+        }
     }
 
     @Override
@@ -64,7 +76,7 @@ public class OfferRepository extends JDBCRepository<Pair<Long, Long>, Offer> {
         var entity = findOne(id);
 
         entity.ifPresent(agency -> {
-            var sql = "DELETE FROM %s WHERE agencyId = ?, estateId = ?".formatted(tableName);
+            var sql = "DELETE FROM %s WHERE agencyId = ? AND estateId = ?".formatted(tableName);
             jdbcOperations.update(sql, id.getLeft(), id.getRight());
         });
 
@@ -74,7 +86,7 @@ public class OfferRepository extends JDBCRepository<Pair<Long, Long>, Offer> {
     @Override
     public Optional<Offer> update(Offer entity) throws ValidatorException {
         validator.validate(entity);
-        var sql = "UPDATE %s SET price = ?, WHERE agencyId = ? AND estateId = ?".formatted(tableName);
+        var sql = "UPDATE %s SET price = ? WHERE agencyId = ? AND estateId = ?".formatted(tableName);
 
         return jdbcOperations.update(sql, entity.getPrice(), entity.getAgencyId(), entity.getEstateId()) == 1
                 ? Optional.empty()

@@ -85,7 +85,10 @@ public class Service {
     }
 
     public void addOffer(Long agencyId, Long estateId, double price) {
-        offerRepository.save(new Offer(agencyId, estateId, price));
+        offerRepository.save(new Offer(agencyId, estateId, price))
+                .ifPresent(offer -> {
+                    throw getExceptionSupplier("entity with id (%d, %d) already exists".formatted(agencyId, estateId)).get();
+                });
     }
 
     public void updateOffer(Long agencyId, Long estateId, double price) {

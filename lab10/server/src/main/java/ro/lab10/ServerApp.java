@@ -19,6 +19,7 @@ public class ServerApp {
         try (var context = getContext()) {
             var tcpServer = context.getBean(TcpServer.class);
             var serverService = context.getBean(ServerService.class);
+//            addSampleEntries(serverService);
 
             addServiceHandlers(tcpServer, serverService);
             tcpServer.startServer();
@@ -27,6 +28,26 @@ public class ServerApp {
 
     private static AnnotationConfigApplicationContext getContext() {
         return new AnnotationConfigApplicationContext("ro.lab10.config");
+    }
+
+    private static void addSampleEntries(ServerService serverService) {
+        for (int i = 1; i <= 10; i++) {
+            try { // get() is called in order to add the PKs before the FKs
+                serverService.addAgency("name%02d".formatted(i), "address%02d".formatted(i)).get();
+                serverService.addCustomer("name%02d".formatted(i), "email%02d".formatted(i));
+                serverService.addEstate("address%02d".formatted(i), i + 1.1).get();
+                serverService.addOffer((long) i, (long) i, i + 0.99);
+            } catch (InterruptedException | ExecutionException ignored) {
+            } // TODO MAYBE change the signatures of the get<Entities> back to Iterable<Entity> in order to be able to easily access the last PKs
+//            try {
+//                Arrays.stream(serverService.getAgencies().get().split(AppService.LINE_SEPARATOR))
+//                        .reduce((s, s2) -> s2).get()
+//                        .split(AppService.ARGUMENTS_SEPARATOR)
+//                        .fi;
+//            } catch (InterruptedException | ExecutionException e) {
+//                throw new RuntimeException(e);
+//            }
+        }
     }
 
     private static void addServiceHandlers(TcpServer tcpServer, ServerService serverService) {

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.function.BiConsumer;
+
 
 public class ConsoleMenuUI {
     private final Map<Integer, String> optionsDescriptions = new HashMap<>();
@@ -54,35 +56,43 @@ public class ConsoleMenuUI {
 
     // L2
 
+    /**
+     * @implNote YOU HAVE TO CALL printOptions() in every option handler
+     */
     private void prepareOptions() {
 //        BiFunction<String, Runnable, Map.Entry<String, Runnable>> createEntry = AbstractMap.SimpleEntry::new;
         Runnable notImplemented = () -> System.out.println("Not implemented");
+        BiConsumer<String, Runnable> addOptionAndAppendOptionsPrinting = (s, runnable) -> addOption(s, () -> {
+            runnable.run();
+            printOptions();
+        });
 
-        addOption("Exit", null);
+        addOption("Exit\n", null);
         addOption("Show agencies", this::showAgencies);
         addOption("Add agency", this::addAgency);
         addOption("Update agency", this::updateAgency);
-        addOption("Remove agency", this::removeAgency);
+        addOption("Remove agency\n", this::removeAgency);
 
         addOption("Show customers", this::showCustomers);
         addOption("Add customer", this::addCustomer);
         addOption("Update customer", this::updateCustomer);
-        addOption("Remove customer", this::removeCustomer);
+        addOption("Remove customer\n", this::removeCustomer);
 
         addOption("Show estates", this::showEstates);
         addOption("Add estate", this::addEstate);
         addOption("Update estate", this::updateEstate);
-        addOption("Remove estate", this::removeEstate);
+        addOption("Remove estate\n", this::removeEstate);
 
         addOption("Show offers", this::showOffers);
         addOption("Add offer", this::addOffer);
         addOption("Update offer", this::updateOffer);
-        addOption("Remove offer", this::removeOffer);
+        addOption("Remove offer\n", this::removeOffer);
 
         // TODO: show by <entity> ex: showPropertiesByUser
         // TODO: top most <adj> <entity> ex: showTopMostInterestingProperties
 
-        addOption("NOT IMPLEMENTED", notImplemented);
+//        addOption("NOT IMPLEMENTED", notImplemented);
+        addOptionAndAppendOptionsPrinting.accept("NOT IMPLEMENTED", notImplemented);
     }
 
     private void printOptions() {
@@ -153,7 +163,7 @@ public class ConsoleMenuUI {
     }
 
     private void addEstate() {
-        var name = IO.readString("Estate name: ");
+        var name = IO.readString("Estate address: ");
         double surface = IO.readDouble("Estate surface: ");
 
         performAndHandleServiceCall(service.addEstate(name, surface));
@@ -161,7 +171,7 @@ public class ConsoleMenuUI {
 
     private void updateEstate() {
         var id = IO.readLong("Estate id: ");
-        var name = IO.readString("Estate name: ");
+        var name = IO.readString("Estate address: ");
         var surface = IO.readDouble("Estate surface: ");
 
         performAndHandleServiceCall(service.updateEstate(id, name, surface));

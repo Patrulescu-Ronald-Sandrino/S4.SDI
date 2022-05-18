@@ -33,9 +33,9 @@ public class EstateRepository extends JDBCRepository<Long, Estate> {
     RowMapper<Estate> getRowMapper() {
         return (rs, rowNum) -> {
             var id = rs.getLong("id");
-            var name = rs.getString("name");
+            var address = rs.getString("address");
             var surface = rs.getDouble("surface");
-            return new Estate(id, name, surface);
+            return new Estate(id, address, surface);
         };
     }
 
