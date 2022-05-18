@@ -6,6 +6,7 @@ public class IO {
     public static void write(String line) {
         System.out.print(line);
     }
+
     public static void writeLine(String line) {
         System.out.println(line);
     }
@@ -14,6 +15,10 @@ public class IO {
         write(prompt);
         var scanner = new Scanner(System.in);
         return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static int readInteger() {
+        return readInteger("");
     }
 
     public static String readString(String prompt) {

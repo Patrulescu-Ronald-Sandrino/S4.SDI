@@ -21,10 +21,10 @@ public class ConsoleMenuUI {
     }
 
     public void run() {
+        printOptions();
         while (true) {
-            printOptions();
             try {
-                int option = IO.readInteger("Your option: ");
+                int option = IO.readInteger();
 
                 if (option == 0) {
                     break;
@@ -33,11 +33,11 @@ public class ConsoleMenuUI {
                 var optionHandler = optionsHandlers.get(option);
                 if (optionHandler == null) {
                     IO.writeLine("Bad input value for option!");
+//                    printOptions();
                 }
                 else {
                     optionHandler.run();
-                    executorService.execute(optionHandler);
-                    executorService.wait();
+                    continue;
                 }
             }
             catch (NumberFormatException e) {
@@ -46,6 +46,7 @@ public class ConsoleMenuUI {
             catch (Exception e) {
                 IO.writeLine(e.getMessage());
             }
+            printOptions();
         }
         executorService.shutdown();
     }
@@ -79,6 +80,7 @@ public class ConsoleMenuUI {
                 .sorted(Comparator.comparingInt(Map.Entry::getKey))
                 .map(entry -> String.format("\t%d. %s", entry.getKey(), entry.getValue()))
                 .reduce("", (s, s2) -> s + '\n' + s2));
+        IO.write("Your option: ");
     }
 
     // L3
@@ -89,14 +91,14 @@ public class ConsoleMenuUI {
     }
 
     private void showAgencies() {
-        handleCompletedServiceCall(service.getAgencies());
+        performAndHandleServiceCall(service.getAgencies());
     }
 
     private void addAgency() {
         var name = IO.readString("Agency name: ");
         var address = IO.readString("Agency address: ");
 
-        handleCompletedServiceCall(service.addAgency(name, address));
+        performAndHandleServiceCall(service.addAgency(name, address));
     }
 
     private void updateAgency() {
@@ -109,7 +111,7 @@ public class ConsoleMenuUI {
 
     // L4
 
-    public void handleCompletedServiceCall(CompletableFuture<String> result) {
+    public void performAndHandleServiceCall(CompletableFuture<String> result) {
         result.whenComplete((s, throwable) -> {
            if (throwable == null) {
                IO.writeLine(s);
@@ -117,6 +119,8 @@ public class ConsoleMenuUI {
            else {
                IO.writeLine(throwable.getMessage());
            }
+           printOptions();
         });
+//        result.join(); // fixes: the menu being shown before a task is completed due to it being asynchronous
     }
 }

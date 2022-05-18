@@ -1,12 +1,9 @@
 package ro.lab10.tcp;
 
 import ro.lab10.exceptions.AppException;
-import ro.lab10.tools.IO;
 
 import java.io.*;
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static ro.lab10.Tools.getDateTime;
 
@@ -16,7 +13,7 @@ public class TcpClient implements ClientServer {
         try (var socket = new Socket(HOST, PORT)) {
             var outputStream = socket.getOutputStream();
             var inputStream = socket.getInputStream();
-            var logsWriter = new PrintWriter("client_logs.txt");
+            var logsWriter = new PrintWriter("client_logs.log");
 
             logsWriter.printf("[%s] sending request: %s%n", getDateTime(), request.toString());
 
@@ -33,11 +30,11 @@ public class TcpClient implements ClientServer {
         }
     }
 
-    public Message sendAndReceive(String header, String body) {
-        return sendAndReceive(new Message(header, body));
+    public String sendAndReceiveBody(String header, String body) {
+        return sendAndReceive(new Message(header, body)).getBody();
     }
 
-    public String sendAndReceiveBody(String header, String body) {
-        return sendAndReceive(header, body).getBody();
+    public String sendAndReceiveBody(String header) {
+        return sendAndReceive(new Message(header)).getBody(); // or replace 'new Message(header)' with 'new Message(header, "")' and remove Message(String) constructor
     }
 }

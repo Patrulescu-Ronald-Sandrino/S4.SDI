@@ -21,7 +21,7 @@ public class ServerService implements AppService {
         return CompletableFuture.supplyAsync(
                 () -> service.getAgencies().stream()
                         .map(Objects::toString)
-                        .map(agency -> agency + '\n')
+                        .map(agency -> agency + LINE_SEPARATOR)
 //                        .reduce("", String::concat),
                         .reduce(String::concat)
                         .orElse("Empty"),
