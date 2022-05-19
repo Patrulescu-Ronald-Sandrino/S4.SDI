@@ -1,3 +1,0 @@
-dependencies {
-    implementation project(':common') // https://stackoverflow.com/questions/67704181/could-not-find-method-compile-for-arguments-in-java
-}

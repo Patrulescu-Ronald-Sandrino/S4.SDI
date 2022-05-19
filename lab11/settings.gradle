@@ -1,5 +1,2 @@
 rootProject.name = 'lab11'
-include 'common'
-include 'client'
-include 'core'
 
