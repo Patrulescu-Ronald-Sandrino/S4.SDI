@@ -1,4 +1,4 @@
-package domain;
+package ro.lab11.domain;
 
 import java.util.Objects;
 

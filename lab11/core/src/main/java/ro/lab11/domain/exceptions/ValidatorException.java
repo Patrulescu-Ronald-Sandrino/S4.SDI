@@ -1,4 +1,4 @@
-package domain.exceptions;
+package ro.lab11.domain.exceptions;
 
 public class ValidatorException extends AppException {
     public ValidatorException(String message) {

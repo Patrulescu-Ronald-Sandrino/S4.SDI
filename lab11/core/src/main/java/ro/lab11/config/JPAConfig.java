@@ -1,4 +1,4 @@
-package config;
+package ro.lab11.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -20,7 +20,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories({"repository"})
+@EnableJpaRepositories({"ro.lab11.repository"})
 @EnableTransactionManagement
 public class JPAConfig {
     @Value("${db.url}")
@@ -46,8 +46,7 @@ public class JPAConfig {
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        HikariDataSource dataSource = new HikariDataSource(config);
-        return dataSource;
+        return new HikariDataSource(config);
     }
 
     @Bean
@@ -59,7 +58,7 @@ public class JPAConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("domain");
+        factory.setPackagesToScan("ro/lab11/domain");
         factory.setDataSource(dataSource());
         factory.afterPropertiesSet();
         return factory.getObject();

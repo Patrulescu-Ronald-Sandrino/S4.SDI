@@ -1,4 +1,4 @@
-package domain;
+package ro.lab11.domain;
 
 public class Offer extends BaseEntity<OfferPK> {
     private final double price;

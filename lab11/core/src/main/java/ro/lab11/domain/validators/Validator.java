@@ -1,6 +1,6 @@
-package domain.validators;
+package ro.lab11.domain.validators;
 
-import domain.exceptions.ValidatorException;
+import ro.lab11.domain.exceptions.ValidatorException;
 
 import java.util.AbstractMap;
 import java.util.Map;

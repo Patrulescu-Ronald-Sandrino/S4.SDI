@@ -1,6 +1,6 @@
-package repository;
+package ro.lab11.repository;
 
-import domain.BaseEntity;
+import ro.lab11.domain.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

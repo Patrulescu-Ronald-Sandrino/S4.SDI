@@ -1,6 +1,6 @@
-package domain.validators;
+package ro.lab11.domain.validators;
 
-import domain.Estate;
+import ro.lab11.domain.Estate;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package domain;
+package ro.lab11.domain;
 
 public class Agency extends BaseEntity<Long>{
     private final String name;

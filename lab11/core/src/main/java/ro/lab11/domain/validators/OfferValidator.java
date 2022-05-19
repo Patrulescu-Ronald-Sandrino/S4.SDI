@@ -1,6 +1,6 @@
-package domain.validators;
+package ro.lab11.domain.validators;
 
-import domain.Offer;
+import ro.lab11.domain.Offer;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

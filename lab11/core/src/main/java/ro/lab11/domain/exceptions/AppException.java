@@ -1,4 +1,4 @@
-package domain.exceptions;
+package ro.lab11.domain.exceptions;
 
 public class AppException extends RuntimeException {
     public AppException(String message) {

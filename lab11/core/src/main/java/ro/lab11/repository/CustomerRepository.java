@@ -1,6 +1,6 @@
-package repository;
+package ro.lab11.repository;
 
-import domain.Customer;
+import ro.lab11.domain.Customer;
 
 public interface CustomerRepository extends BaseEntityRepository<Customer, Long> {
 
