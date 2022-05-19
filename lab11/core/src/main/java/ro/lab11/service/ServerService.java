@@ -1,4 +1,4 @@
-package ro.lab11.service;
+package ro.lab11.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.lab11.exceptions.AppException;

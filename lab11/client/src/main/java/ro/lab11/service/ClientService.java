@@ -1,4 +1,4 @@
-package ro.lab11.service;
+package ro.lab11.core;
 
 import ro.lab11.tcp.TcpClient;
 

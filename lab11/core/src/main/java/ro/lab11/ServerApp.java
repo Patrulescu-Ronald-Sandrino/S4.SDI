@@ -1,8 +1,8 @@
 package ro.lab11;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ro.lab11.service.AppService;
-import ro.lab11.service.ServerService;
+import ro.lab11.core.AppService;
+import ro.lab11.core.ServerService;
 import ro.lab11.tcp.Message;
 import ro.lab11.tcp.TcpServer;
 

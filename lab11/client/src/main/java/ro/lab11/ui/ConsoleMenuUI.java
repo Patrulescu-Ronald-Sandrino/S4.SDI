@@ -1,6 +1,6 @@
 package ro.lab11.ui;
 
-import ro.lab11.service.AppService;
+import ro.lab11.core.AppService;
 import ro.lab11.tools.IO;
 
 import java.util.Comparator;
