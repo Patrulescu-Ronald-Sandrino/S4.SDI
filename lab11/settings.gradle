@@ -1,2 +1,5 @@
 rootProject.name = 'lab11'
+include 'client'
+include 'core'
+include 'web'
 
