@@ -1,33 +1,29 @@
 package ro.lab11.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@ToString(callSuper = true)
+@Table(name = "Estates")
 public class Estate extends BaseEntity<Long> {
-    private final String address;
-    private final double surface;
+    private String address;
+    private double surface;
+    private Long customerId;
 
-    public Estate(Long id, String address, double surface) {
-        super(id);
-        this.address = address;
-        this.surface = surface;
-    }
+    @ManyToOne
+    @MapsId("id")
+    @JoinColumn(name = "customerId")
+    Customer customer;
 
-    public Estate(String address, double surface) {
-        this(0L, address, surface);
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public double getSurface() {
-        return surface;
-    }
-
-    @Override
-    public String toString() {
-        return "Estate{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                ", surface=" + surface +
-                '}';
-    }
+    @OneToMany(mappedBy = "Offers", cascade = {CascadeType.ALL})
+    Set<Offer> offers;
 }

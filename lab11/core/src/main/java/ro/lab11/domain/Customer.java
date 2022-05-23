@@ -1,33 +1,27 @@
 package ro.lab11.domain;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.Set;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@ToString(callSuper = true)
+@Table(name = "Customers")
 public class Customer extends BaseEntity<Long> {
-    private final String name;
-    private final String email;
+    private String name;
+    private String email;
 
-    public Customer(Long id, String name, String email) {
-        super(id);
-        this.name = name;
-        this.email = email;
-    }
-
-    public Customer(String name, String email) {
-        this(0L, name, email);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+    @OneToMany(mappedBy = "Estates", cascade = {CascadeType.ALL})
+    Set<Estate> offers;
 }

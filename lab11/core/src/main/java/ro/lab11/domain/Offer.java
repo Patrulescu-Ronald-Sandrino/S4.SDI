@@ -1,22 +1,29 @@
 package ro.lab11.domain;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import javax.persistence.*;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@ToString(callSuper = true)
+@Table(name = "Offers")
 public class Offer extends BaseEntity<OfferPK> {
-    private final double price;
+    private double price;
 
-    public Offer(Long agencyId, Long estateId, double price) {
-        super(new OfferPK(agencyId, estateId));
-        this.price = price;
-    }
+    @ManyToOne
+    @MapsId("id")
+    @JoinColumn(name = "agencyId")
+    Agency agency;
 
-    public double getPrice() {
-        return price;
-    }
-
-    @Override
-    public String toString() {
-        return "Offer{" +
-                "id=" + id +
-                ", price=" + price +
-                '}';
-    }
+    @ManyToOne
+    @MapsId("id")
+    @JoinColumn(name = "estateId")
+    Estate estate;
 }
