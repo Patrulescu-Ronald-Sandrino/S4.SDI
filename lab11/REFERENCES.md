@@ -1,2 +1,3 @@
 # Warns
-1. Warning:(5, 1) Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type. - https://stackoverflow.com/questions/38572566/warning-equals-hashcode-on-data-annotation-lombok-with-inheritance
+1. https://exerror.com/java-lang-reflect-inaccessibleobjectexception-unable-to-make-protected-final-java-lang-class/#:~:text=must%20be%20solved.-,Solution%201%3A%20add%20vm%20param,-Just%20add%20this
+2. Warning:(5, 1) Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type. - https://stackoverflow.com/questions/38572566/warning-equals-hashcode-on-data-annotation-lombok-with-inheritance

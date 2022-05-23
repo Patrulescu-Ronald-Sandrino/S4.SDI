@@ -1,3 +1,12 @@
+# From Spring DI 3
+1. @Configuration @ComponentScan
+2. @Repository
+3. @Service and @Autowired on Repository
+4. new AnnotationConfigApplicationContext("ro.ubb.springdi.config");
+# catalog rest services
+1. 
+
+
 # TODOs
 1. replace RPC with REST using Spring RestTemplate
 2. use Spring DI and Spring Data JPA (Hibernate)

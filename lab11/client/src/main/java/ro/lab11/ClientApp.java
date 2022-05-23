@@ -1,16 +1,12 @@
 package ro.lab11;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ro.lab11.ui.UI;
+
 public class ClientApp {
     public static void main(String[] args) {
-        techiedelight();
-    }
-
-    public static void techiedelight() {
-        String methodName = new Throwable()
-                .getStackTrace()[0]
-                .getMethodName();
-
-        System.out.println("Current Method is " + methodName);
-        System.out.println("Parent Method is " + new Throwable().getStackTrace()[1].getMethodName());
+        var context = new AnnotationConfigApplicationContext("ro.lab11.config");
+        var ui = context.getBean(UI.class);
+        ui.run();
     }
 }
