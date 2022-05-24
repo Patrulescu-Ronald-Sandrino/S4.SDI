@@ -1,8 +1,6 @@
 package ro.lab11.core.domain;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
@@ -14,9 +12,12 @@ import java.util.Objects;
 
 @MappedSuperclass
 @RequiredArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
 @ToString
+// java all args constructor call super constructor - Alan Ho - https://stackoverflow.com/questions/29740078/how-to-call-super-constructor-in-lombok
+// https://stackoverflow.com/questions/59626796/lomboks-superbuilder-error-java-cannot-find-symbol
 @SuperBuilder
 public class BaseEntity<ID extends Serializable> implements Serializable {
     @Id

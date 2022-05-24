@@ -11,6 +11,12 @@ public class AgencyConvertor extends BaseEntityConverter<Long, Agency, AgencyDTO
                 .name(dto.getName())
                 .address(dto.getAddress())
                 .build();
+//        Agency agency =  Agency.builder()
+//                .name(dto.getName())
+//                .address(dto.getAddress())
+//                .build();
+//        agency.setId(dto.getId());
+//        return agency;
     }
 
     @Override
@@ -20,5 +26,11 @@ public class AgencyConvertor extends BaseEntityConverter<Long, Agency, AgencyDTO
                 .name(agency.getName())
                 .address(agency.getAddress())
                 .build();
+//        AgencyDTO agencyDTO = AgencyDTO.builder()
+//                .name(agency.getName())
+//                .address(agency.getAddress())
+//                .build();
+//        agency.setId(agency.getId());
+//        return agencyDTO;
     }
 }

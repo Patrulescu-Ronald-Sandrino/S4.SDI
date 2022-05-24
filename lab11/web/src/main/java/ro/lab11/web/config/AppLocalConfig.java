@@ -5,7 +5,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import ro.lab11.core.config.JPAConfig;
 
 @Configuration
-//@ComponentScan({"ro.lab11.core.config"})
 @ComponentScan({"ro.lab11.core"})
 @Import({JPAConfig.class})
 @PropertySources({@PropertySource(value = "classpath:local/db.properties"),

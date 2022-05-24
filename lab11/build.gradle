@@ -49,8 +49,9 @@ allprojects {
         implementation group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "$log4jVersion"
 
         //lombok
-//        compileOnly 'org.projectlombok:lombok:1.18.24'
-//        annotationProcessor 'org.projectlombok:lombok:1.18.24'
-        implementation group: 'org.projectlombok', name: 'lombok', version: "1.18.24"
+        compileOnly 'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+        // Yevhenii Tsybaiev -> https://stackoverflow.com/questions/9424364/cant-compile-project-when-im-using-lombok-under-intellij-idea
+//        implementation group: 'org.projectlombok', name: 'lombok', version: "1.18.24"
     }
 }

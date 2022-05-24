@@ -1,10 +1,6 @@
 package ro.lab11.core.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -12,9 +8,9 @@ import java.io.Serializable;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Getter
 @ToString
-@SuperBuilder
 public class OfferPK implements Serializable {
     private Long agencyId;
     private Long estateId;

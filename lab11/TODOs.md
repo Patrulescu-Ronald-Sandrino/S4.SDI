@@ -1,25 +1,17 @@
-# From Spring DI 3
-1. @Configuration @ComponentScan
-2. @Repository
-3. @Service and @Autowired on Repository
-4. new AnnotationConfigApplicationContext("ro.ubb.springdi.config");
-# catalog rest services
-1. 
+# lab11
+1. [core] Service + impl for each entity (4)
+2. [web] Controller for each entity (4)
+3. [client]
+   1. Async Controller for each entity (4)
+   2. ui for each entity (4)
 
 
 # TODOs
-1. replace RPC with REST using Spring RestTemplate
-2. use Spring DI and Spring Data JPA (Hibernate)
-3. log using SLF4J
-4. core, web, client modules
-5. OPTIONAL: filter and sorting
+1. log using SLF4J
+2. core, web, client modules
+3. OPTIONAL: filter and sorting
 
-
-# END
-1. remove `Pair` class from `core.domain`
 
 
 # MAYBE
-1. switch back to `Iterable<Entity>`
-2. estate's customer
-3. make the repo do the work instead of service ([-2:])
+1. make the repo do the work instead of service ([-2:])
