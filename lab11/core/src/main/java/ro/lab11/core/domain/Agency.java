@@ -12,15 +12,19 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @ToString(callSuper = true)
 @Table(name = "Agencies")
 @SuperBuilder
 public class Agency extends BaseEntity<Long>{
+    @NonNull
     private String name;
+    @NonNull
     private String address;
 
     @OneToMany(mappedBy = "agency", cascade = {CascadeType.ALL})
+    @ToString.Exclude
     Set<Offer> offers;
 }

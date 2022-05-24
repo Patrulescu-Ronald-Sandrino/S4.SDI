@@ -27,7 +27,6 @@ public class AgencyServiceImplementation implements AgencyService{
     @Override
     public void addAgency(String name, String address) {
         logger.traceStartArgs(name, address);
-
         logger.traceEndResult(entityWithIdAdded(agencyRepository.save(new Agency(name, address)).getId()));
     }
 
@@ -38,6 +37,7 @@ public class AgencyServiceImplementation implements AgencyService{
         agencyRepository.findById(id).ifPresentOrElse(agency -> {
             agency.setName(name);
             agency.setAddress(address);
+            agencyRepository.save(agency);
             logger.traceEndResult(entityWithIdUpdated(id));
         }, () -> {
             logger.traceEndResult(entityWithIdNotFound(id));

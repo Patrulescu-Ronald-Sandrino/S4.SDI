@@ -1,8 +1,10 @@
 package ro.lab11.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.lab11.core.domain.Agency;
 import ro.lab11.web.dto.AgencyDTO;
 
+@Component
 public class AgencyConvertor extends BaseEntityConverter<Long, Agency, AgencyDTO> {
     @Override
     public Agency convertDTOToModel(AgencyDTO dto) {

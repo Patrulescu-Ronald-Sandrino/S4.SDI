@@ -1,8 +1,10 @@
 package ro.lab11.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.lab11.core.domain.Estate;
 import ro.lab11.web.dto.EstateDTO;
 
+@Component
 public class EstateConvertor extends BaseEntityConverter<Long, Estate, EstateDTO> {
     @Override
     public Estate convertDTOToModel(EstateDTO dto) {

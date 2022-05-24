@@ -1,8 +1,10 @@
 package ro.lab11.web.converter;
 
+import org.springframework.stereotype.Component;
 import ro.lab11.core.domain.Customer;
 import ro.lab11.web.dto.CustomerDTO;
 
+@Component
 public class CustomerConvertor extends BaseEntityConverter<Long, Customer, CustomerDTO> {
     @Override
     public Customer convertDTOToModel(CustomerDTO dto) {

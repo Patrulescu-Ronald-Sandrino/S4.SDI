@@ -9,13 +9,16 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @ToString(callSuper = true)
 @Table(name = "Estates")
 @SuperBuilder
 public class Estate extends BaseEntity<Long> {
+    @NonNull
     private String address;
+    @NonNull
     private double surface;
     private Long customerId;
 
@@ -25,5 +28,6 @@ public class Estate extends BaseEntity<Long> {
     Customer customer;
 
     @OneToMany(mappedBy = "estate", cascade = {CascadeType.ALL})
+    @ToString.Exclude
     Set<Offer> offers;
 }

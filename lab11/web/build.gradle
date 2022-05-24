@@ -9,7 +9,5 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonDatabindVersion"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "$jacksonDatabindVersion"
 
-//    implementation group: 'javax.servlet', name: 'javax.servlet-api', version: "$javaxServeletApiVersion"
-    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version:"$javaxServeletApiVersion"
 }
