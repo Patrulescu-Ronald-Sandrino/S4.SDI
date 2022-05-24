@@ -1,8 +1,8 @@
 package ro.lab11.core.repository;
 
-import ro.lab11.core.domain.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+import ro.lab11.core.domain.BaseEntity;
 
 import java.io.Serializable;
 

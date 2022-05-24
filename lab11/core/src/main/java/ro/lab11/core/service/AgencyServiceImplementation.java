@@ -1,9 +1,9 @@
 package ro.lab11.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ro.lab11.core.domain.Agency;
 import ro.lab11.core.repository.AgencyRepository;
-import org.springframework.stereotype.Service;
 import ro.lab11.core.tools.Logger;
 
 import java.util.List;

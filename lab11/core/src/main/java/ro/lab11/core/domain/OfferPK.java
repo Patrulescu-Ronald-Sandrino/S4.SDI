@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @ToString
+@SuperBuilder
 public class OfferPK implements Serializable {
     private Long agencyId;
     private Long estateId;

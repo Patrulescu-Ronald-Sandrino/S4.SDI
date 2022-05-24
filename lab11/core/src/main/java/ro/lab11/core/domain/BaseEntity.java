@@ -1,6 +1,9 @@
 package ro.lab11.core.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
 import javax.persistence.GeneratedValue;
@@ -14,6 +17,7 @@ import java.util.Objects;
 //@NoArgsConstructor
 @Getter
 @ToString
+@SuperBuilder
 public class BaseEntity<ID extends Serializable> implements Serializable {
     @Id
     @GeneratedValue

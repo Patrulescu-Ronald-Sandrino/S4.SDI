@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Getter
 @ToString(callSuper = true)
 @Table(name = "Customers")
+@SuperBuilder
 public class Customer extends BaseEntity<Long> {
     private String name;
     private String email;

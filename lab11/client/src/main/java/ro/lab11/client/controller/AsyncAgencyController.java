@@ -1,12 +1,10 @@
 package ro.lab11.client.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import ro.lab11.core.domain.exceptions.AppException;
-import ro.lab11.core.tools.IO;
 import ro.lab11.core.tools.Logger;
 import ro.lab11.web.controller.Controller;
 

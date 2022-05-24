@@ -5,13 +5,11 @@ import org.springframework.stereotype.Component;
 import ro.lab11.client.controller.AsyncAgencyController;
 import ro.lab11.core.tools.IO;
 
+import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-//import ro.lab11.tools.IO;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public class UI {

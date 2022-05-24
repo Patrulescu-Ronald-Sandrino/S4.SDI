@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Getter
 @ToString(callSuper = true)
 @Table(name = "Estates")
+@SuperBuilder
 public class Estate extends BaseEntity<Long> {
     private String address;
     private double surface;

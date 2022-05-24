@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Getter
 @ToString(callSuper = true)
 @Table(name = "Offers")
+@SuperBuilder
 public class Offer extends BaseEntity<OfferPK> {
     private double price;
 

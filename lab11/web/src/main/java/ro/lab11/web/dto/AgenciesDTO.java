@@ -1,7 +1,7 @@
 package ro.lab11.web.dto;
 
-import java.util.List;
+import java.util.Set;
 
 public class AgenciesDTO {
-    List<AgencyDTO> agencies;
+    Set<AgencyDTO> agencies;
 }
