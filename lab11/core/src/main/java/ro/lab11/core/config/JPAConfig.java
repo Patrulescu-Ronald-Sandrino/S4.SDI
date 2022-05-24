@@ -20,7 +20,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories({"ro.lab11.core.repository"})
+@EnableJpaRepositories(basePackages = {"ro.lab11.core.repository"})
 @EnableTransactionManagement
 public class JPAConfig {
     @Value("${db.url}")

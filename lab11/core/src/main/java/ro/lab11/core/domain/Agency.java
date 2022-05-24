@@ -21,6 +21,6 @@ public class Agency extends BaseEntity<Long>{
     private String name;
     private String address;
 
-    @OneToMany(mappedBy = "Offers", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "agency", cascade = {CascadeType.ALL})
     Set<Offer> offers;
 }

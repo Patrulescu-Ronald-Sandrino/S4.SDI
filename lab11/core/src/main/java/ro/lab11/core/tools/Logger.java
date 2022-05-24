@@ -1,9 +1,9 @@
 package ro.lab11.core.tools;
 
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class Logger {
     public final org.slf4j.Logger logger;
 

@@ -22,6 +22,6 @@ public class Customer extends BaseEntity<Long> {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "Estates", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.ALL})
     Set<Estate> offers;
 }

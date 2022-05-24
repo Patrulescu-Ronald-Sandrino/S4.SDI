@@ -24,6 +24,6 @@ public class Estate extends BaseEntity<Long> {
     @JoinColumn(name = "customerId")
     Customer customer;
 
-    @OneToMany(mappedBy = "Offers", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "estate", cascade = {CascadeType.ALL})
     Set<Offer> offers;
 }
