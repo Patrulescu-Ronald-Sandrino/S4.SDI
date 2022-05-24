@@ -1,15 +1,9 @@
 package ro.lab11.core.tools;
 
 import org.slf4j.LoggerFactory;
-//import org.springframework.stereotype.Component;
 
-//@Component
 public class Logger {
     public final org.slf4j.Logger logger;
-
-//    public Logger(org.slf4j.Logger logger) {
-//        this.logger = logger;
-//    }
 
     public Logger(Class<?> clazz) {
         this.logger = LoggerFactory.getLogger(clazz);
@@ -32,7 +26,7 @@ public class Logger {
     }
 
     public static String formatString(String message) {
-        return "[%s][%s] %s".formatted(OS.getDateTime(), getCallerName(), message);
+        return "[%s][%s()] %s".formatted(OS.getDateTime(), getCallerName(), message);
     }
 
     public static String getCallerName(){

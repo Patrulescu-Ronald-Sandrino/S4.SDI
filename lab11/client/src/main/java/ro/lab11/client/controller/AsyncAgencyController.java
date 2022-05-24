@@ -27,6 +27,7 @@ public class AsyncAgencyController implements Controller {
     public CompletableFuture<String> test() {
         return CompletableFuture.supplyAsync(() -> {
             try {
+                logger.debug("start");
                 String result = restTemplate.getForObject(url + "/test", String.class);
                 if (result == null) {
                     throw new AppException("test result is null");

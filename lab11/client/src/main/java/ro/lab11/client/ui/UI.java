@@ -51,6 +51,8 @@ public class UI {
         }
     }
 
+    // https://www.geeksforgeeks.org/spring-postconstruct-and-predestroy-annotation-with-example/
+    // https://www.geeksforgeeks.org/spring-init-and-destroy-methods-with-example/#:~:text=Note%3A%20Adding%20%40PostConstruct%20and%20%40PreDestroy%20Annotation%20in%20the%20Project
     @PostConstruct
     private void prepareOptions() {
         BiConsumer<String, Runnable> addOptionAndAppendOptionsPrinting = (s, runnable) -> addOption(s, () -> {
@@ -74,9 +76,8 @@ public class UI {
         optionsHandlers.put(optionsCount++, handler);
     }
 
-    private void test() {
-        agencyController.test().whenComplete((s, throwable) -> {
-           IO.writeLine(throwable == null ? s : throwable.getMessage());
-        });
+    private void test() { // TODO: calling multiple times .whenComplete(), as a workaround to fix the menu printing
+        agencyController.test().whenComplete((s, throwable) ->
+                IO.writeLine(throwable == null ? s : throwable.getMessage()));
     }
 }

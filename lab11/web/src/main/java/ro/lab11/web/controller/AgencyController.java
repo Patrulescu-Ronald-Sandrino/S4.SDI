@@ -13,7 +13,7 @@ public class AgencyController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     String test() {
-        logger.info("called");
+        logger.info("start");
         return "Agency controller is working!";
     }
 }
