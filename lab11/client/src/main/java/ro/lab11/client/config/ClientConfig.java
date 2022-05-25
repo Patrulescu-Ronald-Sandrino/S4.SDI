@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Configuration
-@ComponentScan({"ro.lab11.client.ui", "ro.lab11.client.controller"})
+@ComponentScan({"ro.lab11.client.ui", "ro.lab11.client.controller", "ro.lab11.web.converter"})
 public class ClientConfig {
     @Bean
     RestTemplate restTemplate() {

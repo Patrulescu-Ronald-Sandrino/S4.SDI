@@ -40,7 +40,7 @@ public class Logger { // TODO: idea: create a private void trace(String message,
 
     // LEVEL 2
 
-    private void trace(String message, int level) {
+    public void trace(String message, int level) {
         logger.trace(prependWithCallInfo(message, level));
     }
 
@@ -54,7 +54,8 @@ public class Logger { // TODO: idea: create a private void trace(String message,
     // LEVEL 4
 
     public static String prependWithCallInfo(String message, int level) {
-        return "[%s][%s()] %s ".formatted(OS.getDateTime(), getCallInfo(level), message);
+//        return "[%s][%s()] %s ".formatted(OS.getDateTime(), getCallInfo(level), message);
+        return "%s %s".formatted(getCallInfo(level), message);
     }
 
     // LEVEL 5

@@ -4,6 +4,10 @@
 3. [client]
    1. Async Controller for each entity (4)
    2. ui for each entity (4)
+4. for maximum points - filter and sort 
+   1. README (https://drive.google.com/drive/folders/1qMltiA22DbjtSdJhj8Aldy5cZJg3rAPn) 
+      1. [81] JPA Repositories
+         1. https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 
 # stuff
 1. @RequiredArgsConstructor vs sending domain entity types in the service
