@@ -16,8 +16,13 @@ import javax.persistence.*;
 @Table(name = "Offers")
 @SuperBuilder
 public class Offer extends BaseEntity<OfferPK> {
-    @NonNull // warning: not null is meaningless on a primitive
+    @NonNull // 'warning: not null is meaningless on a primitive', but without it doesn't work either
     private double price;
+
+    public Offer(OfferPK offerPK, @NonNull double price) {
+        super(offerPK);
+        this.price = price;
+    }
 
     @ManyToOne
     @MapsId("id")
