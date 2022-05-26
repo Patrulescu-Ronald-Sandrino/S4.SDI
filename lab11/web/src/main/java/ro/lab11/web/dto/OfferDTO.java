@@ -14,6 +14,4 @@ import ro.lab11.core.domain.OfferPK;
 @SuperBuilder
 public class OfferDTO extends BaseEntityDTO<OfferPK> {
     private double price;
-    private Agency agency;
-    private Estate estate;
 }

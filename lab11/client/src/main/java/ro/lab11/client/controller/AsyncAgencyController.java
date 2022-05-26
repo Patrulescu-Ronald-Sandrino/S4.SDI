@@ -2,11 +2,9 @@ package ro.lab11.client.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import ro.lab11.core.domain.Agency;
 import ro.lab11.core.domain.exceptions.AppException;
-import ro.lab11.core.tools.IO;
 import ro.lab11.core.tools.Logger;
 import ro.lab11.web.controller.Controller;
 import ro.lab11.web.converter.AgencyConvertor;
@@ -33,7 +31,7 @@ public class AsyncAgencyController implements Controller {
     private AgencyConvertor convertor;
 
     public CompletableFuture<String> test() {
-        logger.trace("START");
+        logger.traceStartArgs();
 //        new Throwable().printStackTrace();
         Supplier<String> stringSupplier = () -> {
             logger.trace("START", 4);
@@ -46,34 +44,8 @@ public class AsyncAgencyController implements Controller {
         return getAsyncCompletableFuture(stringSupplier, executorService);
     }
 
-//    private CompletableFuture<String> getStringCompletableFuture(Supplier<String> stringSupplier) {
-//        IO.writeLine("3: do I get called first?");
-//        return CompletableFuture.supplyAsync(() -> {
-//            try {
-//                IO.writeLine("4: do I get called first?");
-//                return stringSupplier.get();
-//            } catch (ResourceAccessException e) {
-//                e.printStackTrace();
-//                throw new AppException("Inaccessible server: " + e.getMessage());
-//            }
-//        }, executorService);
-//    }
-
-    public CompletableFuture<Iterable<Agency>> getAgencies() {
-        logger.trace("start");
-//        return CompletableFuture.supplyAsync(() -> {
-//            try {
-//                AgenciesDTO agenciesDTO = restTemplate.getForObject(url + "/all", AgenciesDTO.class);
-//                if (agenciesDTO == null) {
-//                    throw new AppException("Could not retrieve from server");
-//                }
-//                return agenciesDTO.getAgencies().stream().map(convertor::convertDTOToModel).collect(Collectors.toSet());
-//            }
-//            catch (ResourceAccessException e) {
-//                e.printStackTrace();
-//                throw new AppException("Inaccessible server: " + e.getMessage());
-//            }
-//        }, executorService);
+    public CompletableFuture<Iterable<Agency>> getAll() {
+        logger.traceStartArgs();
         return getAsyncCompletableFuture(() -> {
             AgenciesDTO agenciesDTO = restTemplate.getForObject(url + "/all", AgenciesDTO.class);
             if (agenciesDTO == null) {
@@ -83,8 +55,8 @@ public class AsyncAgencyController implements Controller {
         }, executorService);
     }
 
-    public CompletableFuture<String> addAgency(String name, String address) {
-        logger.trace("start");
+    public CompletableFuture<String> add(String name, String address) {
+        logger.traceStartArgs(name, address);
         return getAsyncCompletableFuture(() -> {
             restTemplate.postForObject(url + "/add", new AgencyDTO(name, address), AgenciesDTO.class);
             return "added";
@@ -92,7 +64,7 @@ public class AsyncAgencyController implements Controller {
     }
 
     public CompletableFuture<String> update(Long id, String name, String address) {
-        logger.trace("start");
+        logger.traceStartArgs(id, name, address);
         return getAsyncCompletableFuture(() -> {
             var agencyDTO = new AgencyDTO(name, address);
             agencyDTO.setId(id);
@@ -102,7 +74,7 @@ public class AsyncAgencyController implements Controller {
     }
 
     public CompletableFuture<String> remove(Long id) {
-        logger.trace("start");
+        logger.traceStartArgs(id);
         return getAsyncCompletableFuture(() -> {
             restTemplate.postForLocation(url + "/{id}/remove", null, id);
             return "removed";

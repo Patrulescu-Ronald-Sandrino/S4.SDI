@@ -20,4 +20,7 @@ public interface Service {
     default String entityWithIdRemoved(Object id) {
         return "removed %s".formatted(entityWithId(id));
     }
+    default String entityWithIdExists(Object id) {
+        return  "%s exists".formatted(entityWithId(id));
+    }
 }

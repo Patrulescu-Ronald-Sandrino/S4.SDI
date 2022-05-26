@@ -13,5 +13,5 @@ import ro.lab11.core.domain.Customer;
 public class EstateDTO extends BaseEntityDTO<Long> {
     private String address;
     private double surface;
-    private Customer customer;
+    private Long customerId;
 }

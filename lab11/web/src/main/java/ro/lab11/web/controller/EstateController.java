@@ -34,17 +34,22 @@ public class EstateController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     void addEstate(@RequestBody EstateDTO estateDTO) {
-        estateService.addEstate(estateDTO.getAddress(), estateDTO.getSurface());
+        estateService.addEstate(estateDTO.getAddress(), estateDTO.getSurface(), estateDTO.getCustomerId());
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     void updateEstate(@PathVariable Long id, @RequestBody EstateDTO estateDTO) {
-        estateService.updateEstate(id, estateDTO.getAddress(), estateDTO.getSurface());
+        estateService.updateEstate(id, estateDTO.getAddress(), estateDTO.getSurface(), estateDTO.getCustomerId());
     }
 
     @RequestMapping(value = "/{id}/remove", method = RequestMethod.POST)
     ResponseEntity<?> removeEstate(@PathVariable Long id) {
         estateService.removeEstate(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/all/find-by-address-containing-ordered-by-surface/{addressSubstring}", method = RequestMethod.GET)
+    EstatesDTO findByAddressContainingOrderBySurface(@PathVariable String addressSubstring) {
+        return new EstatesDTO(convertor.convertModelsToDTOs(estateService.findByAddressContainingOrderBySurface(addressSubstring)));
     }
 }

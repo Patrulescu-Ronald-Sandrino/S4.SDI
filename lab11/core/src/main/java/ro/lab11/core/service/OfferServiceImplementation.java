@@ -42,17 +42,16 @@ public class OfferServiceImplementation implements OfferService {
         });
         
         estateRepository.findById(estateId).ifPresentOrElse((estate) -> {}, () -> {
-            logger.traceEndResult(entityWithIdNotFound(estateId));
+            logger.traceEndResult(entityWithIdNotFound(estateId)); // TODO: fix adding a good value throws error
             throw new AppException(entityWithIdNotFound(estateId));
         });
         
         var id = new OfferPK(agencyId, estateId);
 
-        offerRepository.findById(id).ifPresentOrElse((offer) -> {}, () -> {
-            logger.traceEndResult(entityWithIdNotFound(id));
-            throw new AppException(entityWithIdNotFound(id));
-        });
-
+        if (offerRepository.existsById(id)) {
+            logger.traceEndResult(entityWithIdExists(id));
+            throw new AppException(entityWithIdExists(id));
+        }
 
         logger.traceEndResult(entityWithIdAdded(offerRepository.save(new Offer(id, price)).getId()));
     }

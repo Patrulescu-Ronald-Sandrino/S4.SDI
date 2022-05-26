@@ -2,6 +2,7 @@ package ro.lab11.client.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import ro.lab11.client.controller.AsyncAgencyController;
 import ro.lab11.client.controller.AsyncCustomerController;
 import ro.lab11.client.controller.AsyncEstateController;
@@ -17,7 +18,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.stream.StreamSupport;
 
 @Component
 public class UI {
@@ -71,8 +71,7 @@ public class UI {
             runnable.run();
 //            printOptions();
         });
-        addOption("Exit", null);
-        addOptionAndAppendOptionsPrinting.accept("test", this::test);
+        addOption("Exit\n", null);
         addOptionAndAppendOptionsPrinting.accept("Show agencies", this::showAgencies);
         addOptionAndAppendOptionsPrinting.accept("Add agency", this::addAgency);
         addOptionAndAppendOptionsPrinting.accept("Update agency", this::updateAgency);
@@ -92,6 +91,12 @@ public class UI {
         addOptionAndAppendOptionsPrinting.accept("Add offer", this::addOffer);
         addOptionAndAppendOptionsPrinting.accept("Update offer", this::updateOffer);
         addOptionAndAppendOptionsPrinting.accept("Remove offer\n", this::removeOffer);
+
+        addOptionAndAppendOptionsPrinting.accept("Remove offer\n", this::removeOffer);
+
+        addOptionAndAppendOptionsPrinting.accept("Find estate by address containing order by surface\n", this::findEstateByAddressContainingOrderBySurface);
+
+        addOptionAndAppendOptionsPrinting.accept("test", this::test);
     }
 
     private void printOptions() {
@@ -108,14 +113,14 @@ public class UI {
     }
 
     private void showAgencies() {
-        handleCompletedControllerGetAllCall(agencyController.getAgencies());
+        handleCompletedControllerGetAllCall(agencyController.getAll());
     }
 
     private void addAgency() {
         var name = IO.readString("Agency name: ");
         var address = IO.readString("Agency address: ");
 
-        handleCompletedControllerCall(agencyController.addAgency(name, address));
+        handleCompletedControllerCall(agencyController.add(name, address));
     }
 
     private void updateAgency() {
@@ -132,14 +137,14 @@ public class UI {
     }
 
     private void showCustomers() {
-//        handleCompletedControllerCall(service.getCustomers());
+        handleCompletedControllerGetAllCall(customerController.getAll());
     }
 
     private void addCustomer() {
         var name = IO.readString("Customer name: ");
         var email = IO.readString("Customer email: ");
 
-//        handleCompletedControllerCall(service.addCustomer(name, email));
+        handleCompletedControllerCall(customerController.add(name, email));
     }
 
     private void updateCustomer() {
@@ -147,40 +152,42 @@ public class UI {
         var name = IO.readString("Customer name: ");
         var email = IO.readString("Customer email: ");
 
-//        handleCompletedControllerCall(service.updateCustomer(id, name, email));
+        handleCompletedControllerCall(customerController.update(id, name, email));
     }
 
     private void removeCustomer() {
         var id = IO.readLong("Customer id: ");
-//        handleCompletedControllerCall(service.removeCustomer(id));
+        handleCompletedControllerCall(customerController.remove(id));
     }
 
     private void showEstates() {
-//        handleCompletedControllerCall(service.getEstates());
+        handleCompletedControllerGetAllCall(estateController.getAll());
     }
 
     private void addEstate() {
         var name = IO.readString("Estate address: ");
         double surface = IO.readDouble("Estate surface: ");
+        var customerId = IO.readLong("Estate customer id: ");
 
-//        handleCompletedControllerCall(service.addEstate(name, surface));
+        handleCompletedControllerCall(estateController.add(name, surface, customerId));
     }
 
     private void updateEstate() {
         var id = IO.readLong("Estate id: ");
         var name = IO.readString("Estate address: ");
         var surface = IO.readDouble("Estate surface: ");
+        var customerId = IO.readLong("Estate customer id: ");
 
-//        handleCompletedControllerCall(service.updateEstate(id, name, surface));
+        handleCompletedControllerCall(estateController.update(id, name, surface, customerId));
     }
 
     private void removeEstate() {
         var id = IO.readLong("Estate id: ");
-//        handleCompletedControllerCall(service.removeEstate(id));
+        handleCompletedControllerCall(estateController.remove(id));
     }
 
     private void showOffers() {
-//        handleCompletedControllerCall(service.getOffers());
+        handleCompletedControllerGetAllCall(offerController.getAll());
     }
 
     private void addOffer() {
@@ -188,7 +195,7 @@ public class UI {
         var estateId = IO.readLong("Offer estate id: ");
         double price = IO.readDouble("Offer price: ");
 
-//        handleCompletedControllerCall(service.addOffer(agencyId, estateId, price));
+        handleCompletedControllerCall(offerController.add(agencyId, estateId, price));
     }
 
     private void updateOffer() {
@@ -196,13 +203,19 @@ public class UI {
         var estateId = IO.readLong("Offer estate id: ");
         double price = IO.readDouble("Offer price: ");
 
-//        handleCompletedControllerCall(service.updateOffer(agencyId, estateId, price));
+        handleCompletedControllerCall(offerController.update(agencyId, estateId, price));
     }
 
     private void removeOffer() {
         var agencyId = IO.readLong("Offer agency id: ");
         var estateId = IO.readLong("Offer estate id: ");
-//        handleCompletedControllerCall(service.removeOffer(agencyId, estateId));
+
+        handleCompletedControllerCall(offerController.remove(agencyId, estateId));
+    }
+    public void findEstateByAddressContainingOrderBySurface() {
+        var addressSubstring = IO.readString("Address substring is: ");
+
+        handleCompletedControllerGetAllCall(estateController.findByAddressContainingOrderBySurface(addressSubstring));
     }
 
     private void test() { // TODO: calling multiple times .whenComplete(), as a workaround to fix the menu printing

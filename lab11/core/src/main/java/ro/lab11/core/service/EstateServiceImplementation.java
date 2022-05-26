@@ -2,12 +2,15 @@ package ro.lab11.core.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ro.lab11.core.domain.Customer;
 import ro.lab11.core.domain.Estate;
 import ro.lab11.core.domain.exceptions.AppException;
+import ro.lab11.core.repository.CustomerRepository;
 import ro.lab11.core.repository.EstateRepository;
 import ro.lab11.core.tools.Logger;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -16,6 +19,9 @@ public class EstateServiceImplementation implements EstateService {
 
     @Autowired
     private EstateRepository estateRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+
 
     @Override
     public List<Estate> getEstates() {
@@ -26,16 +32,19 @@ public class EstateServiceImplementation implements EstateService {
     }
 
     @Override
-    public void addEstate(String address, double surface) {
+    public void addEstate(String address, double surface, Long customerId) {
         logger.traceStartArgs(address, surface);
-        logger.traceEndResult(entityWithIdAdded(estateRepository.save(new Estate(address, surface)).getId()));
+        logger.traceEndResult(entityWithIdAdded(estateRepository.save(new Estate(address, surface, customerRepository.getOne(customerId), null)).getId()));
     }
 
     @Override
-    public void updateEstate(Long id, String address, double surface) {
+    public void updateEstate(Long id, String address, double surface, Long customerId) {
         logger.traceStartArgs(id, address, surface);
 
         estateRepository.findById(id).ifPresentOrElse(estate -> {
+            var customer = new Customer();
+            customer.setId(customerId);
+            estate.setCustomer(customer);
             estate.setAddress(address);
             estate.setSurface(surface);
             estateRepository.save(estate);
@@ -57,5 +66,12 @@ public class EstateServiceImplementation implements EstateService {
             logger.traceEndResult(entityWithIdNotFound(id));
             throw new AppException(entityWithIdNotFound(id));
         });
+    }
+
+    public Set<Estate> findByAddressContainingOrderBySurface(String addressSubstring) {
+        logger.traceStartArgs(addressSubstring);
+        var all = estateRepository.findByAddressContainingOrderBySurface(addressSubstring);
+        logger.traceEndResult(all.toString());
+        return all;
     }
 }

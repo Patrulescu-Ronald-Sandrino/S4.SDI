@@ -20,7 +20,7 @@ public class Estate extends BaseEntity<Long> {
     private String address;
     @NonNull
     private double surface;
-    private Long customerId;
+//    private Long customerId;
 
     @ManyToOne
     @MapsId("id")
